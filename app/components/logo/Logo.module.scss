@@ -1,0 +1,35 @@
+.logo {
+  height: 50px;
+
+  & svg {
+    height: 50px;
+  }
+
+  & > * {
+    transition: all 0.25s linear;
+  }
+
+  .logo-bg {
+    width: 100%;
+  }
+}
+
+.closed {
+  width: 50px;
+
+  .logo-bg {
+    width: 44px;
+  }
+
+  .inancial,
+  .igest {
+    display: none;
+  }
+
+  .f {
+    transform: translateX(-8px);
+  }
+  .d {
+    transform: translateX(-154px);
+  }
+}

@@ -1,0 +1,23 @@
+@import '../../styles/settings';
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+  margin: 70px 0;
+
+  .closed & {
+    align-items: center;
+
+    & .menu-item {
+      & link {
+        justify-content: center;
+      }
+
+      & span {
+        transition: opacity 0.25s linear;
+        // opacity: 0;
+        display: none;
+      }
+    }
+  }
+}
