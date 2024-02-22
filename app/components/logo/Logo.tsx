@@ -1,12 +1,34 @@
 import s from './Logo.module.scss'
+import { gsap } from 'gsap'
+import { useGSAP } from '@gsap/react'
 
 export const Logo = ({ open }: { open: boolean }) => {
-  console.log(open)
+  useGSAP(() => {
+    // to do: make staggered animation with individual letters
+    if (open) {
+      // console.log('play')
+      gsap.fromTo('.logo-bg', { width: '44px' }, { width: '100%' })
+      gsap.fromTo(
+        ['.inancial', '.igest'],
+        { x: -5, opacity: 0 },
+        { x: 0, opacity: 1, duration: 1, delay: 0.2, ease: 'power4.out' }
+      )
+    } else if (!open) {
+      // console.log('reverse')
+      gsap.fromTo('.logo-bg', { width: '100%' }, { width: '44px' })
+      gsap.fromTo(
+        ['.inancial', '.igest'],
+        { x: 0, opacity: -5 },
+        { x: 1, opacity: 0, duration: 1, ease: 'power4.out' }
+      )
+    }
+  }, [open])
+
   return (
     <div className={`${s.logo} ${open ? '' : s.closed}`}>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 290.21 44">
         <rect
-          className={s.logoBg}
+          className={`${s.logoBg} logo-bg`}
           style={{ fill: '#93e5ab' }}
           width="290.21"
           height="44"
@@ -17,7 +39,7 @@ export const Logo = ({ open }: { open: boolean }) => {
           style={{ fill: '#274c45' }}
           d="M15.71,31.91V11.75H30v4.32H20.26v3.29h6.08v4.32H20.26v8.23Z"
         />
-        <g className={s.inancial}>
+        <g className={`${s.inancial} inancial`}>
           <path className={s.letter} d="M32.5,31.91V11.75h4.55V31.91Z" />
           <path
             className={s.letter}
@@ -50,7 +72,7 @@ export const Logo = ({ open }: { open: boolean }) => {
           style={{ fill: '#274c45' }}
           d="M175.45,31.91V11.75h7.66a11,11,0,0,1,4.52.85,8.46,8.46,0,0,1,3.05,2.3,9.44,9.44,0,0,1,1.73,3.25,12.71,12.71,0,0,1,.54,3.68,12.26,12.26,0,0,1-.52,3.49,9.67,9.67,0,0,1-1.69,3.26A8.34,8.34,0,0,1,187.68,31a10.84,10.84,0,0,1-4.69.91ZM180,27.56h3.42a4.51,4.51,0,0,0,2.23-.51,4.2,4.2,0,0,0,1.48-1.36,5.89,5.89,0,0,0,.83-1.86,7.7,7.7,0,0,0,.27-2,8,8,0,0,0-.27-2.06,5.82,5.82,0,0,0-.81-1.85,4.08,4.08,0,0,0-1.4-1.34,3.8,3.8,0,0,0-2-.51H180Z"
         />
-        <g className={s.igest}>
+        <g className={`${s.igest} igest`}>
           <path className={s.letter} d="M196.35,31.91V11.75h4.55V31.91Z" />
           <path
             className={s.letter}

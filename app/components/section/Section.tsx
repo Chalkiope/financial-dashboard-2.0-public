@@ -1,17 +1,22 @@
-import { ReactElement } from "react";
-import s from "./Section.module.scss";
+import React from 'react'
+import s from './Section.module.scss'
+import { Container } from '../container/Container'
 
 export const Section = ({
   title,
-  children,
+  children
 }: {
-  title: string;
-  children: ReactElement;
+  title: string
+  children: React.ReactNode
 }) => {
   return (
-    <section>
-      <h2 className={s.sectionTitle}>{title}</h2>
-      {children}
-    </section>
-  );
-};
+    <>
+      <section className={s.section}>
+        <Container>
+          <h2 className={s.sectionTitle}>{title}</h2>
+          {children}
+        </Container>
+      </section>
+    </>
+  )
+}

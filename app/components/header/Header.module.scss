@@ -1,8 +1,8 @@
 @import '../../styles/settings';
 
 .header {
-  width: 350px;
-  height: 100vh;
+  width: 70px;
+  height: 100dvh;
   padding: 30px 0px;
   display: flex;
   flex-direction: column;
@@ -11,11 +11,11 @@
   left: 0;
   background-color: $darkGreen;
   z-index: 10;
-  transition: all 0.25s linear;
+  // transition: all 0.25s linear;
 
-  &.closed {
-    width: 70px;
-  }
+  // &.closed {
+  //   width: 70px;
+  // }
 }
 
 .page-title {
@@ -33,7 +33,7 @@
   top: 100px;
   right: 0;
   transform: translateX(50%) rotate(180deg);
-  transition: 0.5s linear;
+  transition: 0.5s ease-in-out;
 
   .closed & {
     transform: translateX(50%) rotate(0deg);

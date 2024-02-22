@@ -6,16 +6,16 @@
   }
 
   & > * {
-    transition: all 0.25s linear;
+    // transition: all 0.25s linear;
   }
 
   .logo-bg {
-    width: 100%;
+    width: 44px;
   }
 }
 
 .closed {
-  width: 50px;
+  width: 44px;
 
   .logo-bg {
     width: 44px;
@@ -23,7 +23,7 @@
 
   .inancial,
   .igest {
-    display: none;
+    opacity: 0;
   }
 
   .f {

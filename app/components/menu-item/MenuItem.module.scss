@@ -5,6 +5,15 @@
   position: relative;
 
   .closed & {
+    & link {
+      justify-content: center;
+    }
+
+    & span {
+      transition: opacity 0.25s linear;
+      // opacity: 0;
+      display: none;
+    }
   }
 
   & .link {
@@ -24,35 +33,23 @@
     }
 
     & .icon {
-      height: 25px;
-      width: 25px;
-      background-size: contain;
-      background-position: center;
-      background-repeat: no-repeat;
-      display: inline-block;
-      position: relative;
-      bottom: 2px;
-      margin: 5px 20px;
+      // width: 100%;
+      // display: flex;
+      // justify-content: center;
+
+      & svg {
+        height: 25px;
+        width: 25px;
+        display: inline-block;
+        position: relative;
+        bottom: 2px;
+        margin: 5px 20px;
+      }
     }
 
-    & span {
+    & .menu-item-text {
       white-space: nowrap;
+      opacity: 0;
     }
-  }
-
-  &#accounts-menu-item .link .icon {
-    background-image: url('../../assets/img/accounts-icon.svg');
-  }
-  &#asset-summary-menu-item .link .icon {
-    background-image: url('../../assets/img/assets-icon.svg');
-  }
-  &#mortgage-menu-item .link .icon {
-    background-image: url('../../assets/img/mortgage-icon.svg');
-  }
-  &#bucket-strategy-menu-item .link .icon {
-    background-image: url('../../assets/img/bucket-icon.svg');
-  }
-  &#investments-menu-item .link .icon {
-    background-image: url('../../assets/img/stocks-icon.svg');
   }
 }
