@@ -1,26 +1,29 @@
 'use client'
-import React, { useContext, useState } from 'react';
-import s from './AccountGroupContainer.module.scss';
-import { PocketsmithContext } from '@/app/contexts/PocketsmithProvider';
-import { AccountGroup } from './account-group/AccountGroup';
+import React, { useContext, useState } from 'react'
+import s from './AccountGroupContainer.module.scss'
+import { PocketsmithContext } from '@/app/contexts/PocketsmithProvider'
+import { AccountGroup } from './account-group/AccountGroup'
+import { AccountGroupType } from '@/app/api/types'
 
-export const AccountGroupContainer = ({children}: {children?: React.ReactNode}) => {
-    const data: any = useContext(PocketsmithContext)
-    if (!data) return <></>
-    // const accountGroups = data
-    console.log(data?.addedAccountdata)    
-    const [accountGroups, setAccountGroups] = useState<any[]>(data.addedAccountdata.accountGroups)
+export const AccountGroupContainer = () => {
+  const { addedAccountdata } = useContext(PocketsmithContext)
+
+  if (!addedAccountdata) return <></>
 
   return (
-  <>
-    {accountGroups.map((group: any, i: number) => {
-        return (
-            <AccountGroup groupName={group.name} accounts={group.accountIds} accountGroupBalance={group.accountGroupBalance}/>
-            )
-            
-        })
-        
-    }
+    <>
+      {addedAccountdata.accountGroups.map(
+        (group: AccountGroupType, i: number) => {
+          return (
+            <AccountGroup
+              key={i}
+              groupName={group.name}
+              groupAccounts={group.accounts}
+              groupBalance={group.groupBalance}
+            />
+          )
+        }
+      )}
     </>
   )
 }

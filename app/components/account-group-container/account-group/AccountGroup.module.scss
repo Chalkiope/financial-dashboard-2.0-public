@@ -1,148 +1,144 @@
 @import '../../../styles/settings';
 
-
 .account-group-title {
-    background-color: lighten($teal,10%);
-    padding: 20px;
-    margin: 10px 0;
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    
+  background-color: lighten($teal, 10%);
+  padding: 20px;
+  margin: 10px 0;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+
+  @media #{$mobileMax} {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  & h3 {
+    margin: 0;
+  }
+
+  & h4 {
+    margin: 0;
+  }
+
+  & > div {
+    border-right: 2px solid $celadon;
+    padding-right: 30px;
+    padding-left: 30px;
+
     @media #{$mobileMax} {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    & h3 {
-        margin: 0;
-    }
-
-    & h4 {
-        margin: 0;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      padding-left: 0;
+      padding-right: 0;
+      border-right: none;
+      border-bottom: 2px solid $celadon;
+      width: 100%;
     }
 
-    & > div {
-        border-right: 2px solid $celadon;
-        padding-right: 30px;
-        padding-left: 30px;
+    &.group-name {
+      width: 20%;
+      padding-left: 0;
+      min-width: 225px;
 
-        @media #{$mobileMax} {
-            padding-top: 15px;
-            padding-bottom: 15px;
-            padding-left: 0;
-            padding-right: 0;
-            border-right: none;
-            border-bottom: 2px solid $celadon;
-            width: 100%;
-        }
+      @media #{$tabletMax} {
+        min-width: 165px;
+      }
 
-        &.group-name {
-            width: 20%;
-            padding-left: 0;
-            min-width: 225px;
+      @media #{$mobileMax} {
+        width: 100%;
+        min-width: 0;
+      }
+    }
+    &.group-acc-no {
+      width: 12%;
+      min-width: 125px;
 
-            @media #{$tabletMax} {
-                min-width: 165px;
-            }
+      @media #{$mobileMax} {
+        width: 100%;
+        min-width: 0;
+      }
+    }
+    &.group-balance {
+      width: 15%;
+      flex-grow: 1;
+      flex-shrink: 1;
+      border-right: none;
 
-            @media #{$mobileMax} {
-                width: 100%;
-                min-width: 0;
-            }
-        }
-        &.group-acc-no {
-            width: 12%;
-            min-width: 125px;
+      @media #{$mobileMax} {
+        width: 100%;
+        min-width: 0;
+      }
+    }
+  }
 
-            @media #{$mobileMax} {
-                width: 100%;
-                min-width: 0;
-            }
-        }
-        &.group-balance {
-            width: 15%;
-            flex-grow: 1;
-            flex-shrink: 1;
-            border-right: none;
+  & .account-group-balance {
+    color: white;
+  }
 
-            @media #{$mobileMax} {
-                width: 100%;
-                min-width: 0;
-            }
-        }
+  & .account-group-toggle {
+    padding: 5px 10px;
+    color: $celadon;
+    border: none;
+    width: 90px;
+    height: 35px;
+    // font-family: $font;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    justify-self: flex-end;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: $darkGreen;
+      // border-radius: 10rem;
+      z-index: -2;
+    }
+    &:before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 100%;
+      background-color: $celadon;
+      transition: all 0.3s;
+      // border-radius: 10rem;
+      z-index: -1;
+    }
+    &:hover {
+      color: $darkGreen;
+
+      &:before {
+        width: 100%;
+      }
     }
 
-    & .account-group-balance {
-        color: white;
+    @media #{$mobileMax} {
+      margin: 15px 0 0 0;
+      align-self: flex-end;
     }
 
-    & .account-group-toggle {
-        padding: 5px 10px;
-        color: $celadon;
-        border: none;
-        width: 90px;
-        height: 35px;
-        // font-family: $font;
-        font-weight: 700;
-        text-transform: uppercase;
-        text-align: center;
-        justify-self: flex-end;
-        cursor: pointer;
-        transition: all .3s;
-        position: relative;
-        overflow: hidden;
-        z-index: 1;
-
-        &:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: $darkGreen;
-            // border-radius: 10rem;
-            z-index: -2;
-        }
-        &:before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0%;
-            height: 100%;
-            background-color: $celadon;
-            transition: all .3s;
-            // border-radius: 10rem;
-            z-index: -1;
-        }
-        &:hover {
-        color: $darkGreen;
-
-            &:before {
-                width: 100%;
-            }
-        }
-
-        @media #{$mobileMax} {
-            margin: 15px 0 0 0;
-            align-self: flex-end;
-        }
-
-        @media #{$smallMobileMax} {
-            width: 100%;
-        }
+    @media #{$smallMobileMax} {
+      width: 100%;
     }
+  }
 }
 
 .account-group {
-    height: auto;
+  height: auto;
 
-    &.is-closed {
-        height: 0;
-        .account {
-            display: none;
-        }
-    }
+  &.is-closed {
+    height: 0;
+  }
 }

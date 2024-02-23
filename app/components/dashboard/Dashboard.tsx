@@ -7,11 +7,11 @@ import { AccountGroupContainer } from '../account-group-container/AccountGroupCo
 
 export const Dashboard = () => {
   const data = useContext(PocketsmithContext)
-  console.log(data)
+  // console.log(data)
   return (
     <main className={s.dashboardWrapper}>
       <Section title="Accounts">
-        <AccountGroupContainer/>
+        <AccountGroupContainer />
       </Section>
     </main>
   )
