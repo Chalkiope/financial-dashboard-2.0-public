@@ -19,9 +19,6 @@ export const Account = ({
       <p>
         {balance} <span>{currency}</span>
       </p>
-      <p>
-        {balance} <span>{currency}</span>
-      </p>
       {/* <p>{germanNumberFormat(balance)} <span>{CurrencySymbols(currency)}</span></p> */}
     </div>
   )

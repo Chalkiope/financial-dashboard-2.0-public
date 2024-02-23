@@ -23,4 +23,17 @@
   display: flex;
   flex-direction: column;
   flex: auto 1 1;
+  width: 20%;
+
+  @media #{$tabletMax} {
+    width: 30%;
+  }
+
+  @media #{$mobileMax} {
+    width: calc(50% - 20px);
+  }
+
+  @media #{$smallMobileMax} {
+    width: 100%;
+  }
 }
