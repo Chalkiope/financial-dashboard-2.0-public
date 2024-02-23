@@ -50,7 +50,9 @@ export const AccountGroup = ({
         </button>
       </div>
       <div
-        className={`${s.group} ${s.accountGroup} ${open ? '' : s.isClosed}`}
+        className={`${s.group} ${s.accountGroup} ${s.col4Container} ${
+          open ? '' : s.isClosed
+        }`}
         id={groupName}
       >
         {open &&
