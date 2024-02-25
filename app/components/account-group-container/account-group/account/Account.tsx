@@ -1,3 +1,5 @@
+import { useGermanNumberFormat } from '@/app/hooks/useGermanNumberFormat'
+import { useCurrencySymbols } from '@/app/hooks/useCurrencySymbols'
 import s from './Account.module.scss'
 
 export const Account = ({
@@ -16,10 +18,7 @@ export const Account = ({
       }`}
     >
       <h2>{name}</h2>
-      <p>
-        {balance} <span>{currency}</span>
-      </p>
-      {/* <p>{germanNumberFormat(balance)} <span>{CurrencySymbols(currency)}</span></p> */}
+      <p>{useGermanNumberFormat(balance)} <span>{useCurrencySymbols(currency)}</span></p>
     </div>
   )
 }

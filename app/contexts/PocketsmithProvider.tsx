@@ -2,21 +2,8 @@
 
 import React, { createContext, useEffect, useState } from 'react'
 import { getAccountData, getUserData } from '../lib/fetchPocketsmithData'
-import { User } from '../api/user'
-import { Account } from '../api/account'
 import { AccountType, AddedAccountDataType, UserType } from '../api/types'
 import { AccountGroupType } from '../api/types'
-
-// export interface AccountType {
-//   currency_code: string
-//   current_balance: number
-//   current_balance_date: string
-//   current_balance_in_base_currency: number
-//   id: number
-//   is_net_worth: boolean
-//   title: string
-//   type: string
-// }
 
 export const PocketsmithContext = createContext<{
   accounts: AccountType[]
@@ -39,19 +26,13 @@ export const PocketsmithContext = createContext<{
   }
 })
 
-export const GameStatusContext = createContext<{
-  accounts: string[]
-}>({
-  accounts: []
-})
-
 export default function PocketsmithContextProvider({
   children
 }: {
   children: React.ReactNode
 }) {
-  const [accounts, setAccounts] = useState<Account[]>([])
-  const [user, setUser] = useState<User>({})
+  const [accounts, setAccounts] = useState<AccountType[]>([])
+  const [user, setUser] = useState<UserType>({})
 
   const getPocketsmithAccountData = async () => {
     const response = await getAccountData()
@@ -153,7 +134,7 @@ export default function PocketsmithContextProvider({
     // map over groups
     addedAccountdata.accountGroups.map((group: AccountGroupType, i: number) => {
       // map over all accounts
-      accounts.map((account: Account, i: number) => {
+      accounts.map((account: AccountType, i: number) => {
         // match up ids
         if (group.accountIds && group.accountIds.includes(account.id)) {
           // push into object
@@ -161,7 +142,6 @@ export default function PocketsmithContextProvider({
         }
       })
     })
-    // console.log(addedAccountdata)
   }
 
   addAPIAccountData()
@@ -169,7 +149,7 @@ export default function PocketsmithContextProvider({
   const calcGroupBalances = () => {
     addedAccountdata.accountGroups.map((group: AccountGroupType, i: number) => {
       let balance: number = 0
-      group.accounts.map((account: Account, i: number) => {
+      group.accounts.map((account: AccountType, i: number) => {
         // if(group.accountIds.includes(account.id)) {
         if (account.current_balance_in_base_currency) {
           balance += account.current_balance_in_base_currency

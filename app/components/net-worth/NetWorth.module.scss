@@ -1,0 +1,34 @@
+@import '../../styles/settings';
+
+.tile {
+    padding: 20px;
+    margin: 10px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    flex: auto 1 1;
+}
+
+.net-worth-container {
+    background-color: $oceanGreen;
+
+    & > div {
+        margin-bottom: 20px;
+
+        &.networth-liquid {
+            border-top: 2px solid $darkGreen;
+            padding-top: 20px;
+        }
+    }
+
+    & h2 {
+        color: $darkGreen;
+    }
+
+    & p {
+        color: $darkGreen;
+        margin: 10px 0 0 0;
+        font-size: 22px;
+        font-weight: 400;
+    }
+}

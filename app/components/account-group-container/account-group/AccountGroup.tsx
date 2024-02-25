@@ -2,6 +2,8 @@ import { useState } from 'react'
 import s from './AccountGroup.module.scss'
 import { Account } from './account/Account'
 import { AccountType } from '@/app/api/types'
+import {useGermanNumberFormat} from '@/app/hooks/useGermanNumberFormat'
+import { useFormattedText } from '@/app/hooks/useFormattedText'
 
 export const AccountGroup = ({
   groupName,
@@ -14,10 +16,10 @@ export const AccountGroup = ({
 }) => {
   const [open, setOpen] = useState(false)
 
-  console.log(open)
+  // console.log(open)
 
   return (
-    <div>
+    <>
       <div
         className={`${s.accountGroupTitle} ${
           groupBalance < 0 ? s.negativeBalance : ''
@@ -25,8 +27,7 @@ export const AccountGroup = ({
       >
         <div className={s.groupName}>
           <h4>Account Group</h4>
-          {/* <h3>{fixCamelCase(groupName)}</h3> */}
-          <h3>{groupName}</h3>
+          <h3>{useFormattedText(groupName)}</h3>
         </div>
         <div className={s.groupAccNo}>
           <h4>No. of Accounts</h4>
@@ -34,9 +35,8 @@ export const AccountGroup = ({
         </div>
         <div className={s.groupBalance}>
           <h4>Combined Balance</h4>
-          <h3 className={s.accountGroupBalance}>
-            {groupBalance}
-            {/* {germanNumberFormat(accountGroupBalance)} */}
+          <h3 className={`${s.accountGroupBalance} ${(groupBalance < 0) ? s.negativeBalance : ''}`}>
+            {useGermanNumberFormat(groupBalance)}
             <span> NZ$</span>
           </h3>
         </div>
@@ -46,7 +46,7 @@ export const AccountGroup = ({
             setOpen(!open)
           }}
         >
-          Show
+          {`${!open ? 'Show' : 'Hide'}`}
         </button>
       </div>
       <div
@@ -68,6 +68,6 @@ export const AccountGroup = ({
             )
           })}
       </div>
-    </div>
+      </>
   )
 }

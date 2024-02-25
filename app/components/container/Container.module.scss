@@ -1,6 +1,10 @@
 @import '../../styles/settings';
 
-.col4-container {
+.container {
+  // background-color: red;
+}
+
+.col4 {
   width: 100%;
 
   & .group {
@@ -27,7 +31,7 @@
   }
 }
 
-.col2-container {
+.col2 {
   width: calc(100% + 20px);
   display: flex;
   flex-wrap: wrap;
