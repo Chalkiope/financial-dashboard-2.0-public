@@ -6,15 +6,20 @@
 
 .col4 {
   width: 100%;
+  // width: calc(100% + 20px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  // margin: 0 -10px;
 
-  & .group {
-    width: calc(100% + 20px);
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 -10px;
-  }
+  // & .group {
+  //   width: calc(100% + 20px);
+  //   display: flex;
+  //   flex-wrap: wrap;
+  //   margin: 0 -10px;
+  // }
 
-  & .tile {
+  & > div {
     width: 20%;
 
     @media #{$tabletMax} {
@@ -37,7 +42,7 @@
   flex-wrap: wrap;
   margin: 0 -10px;
 
-  & .tile {
+  & > div {
     width: calc(50% - 20px);
 
     @media #{$desktopMax} {
