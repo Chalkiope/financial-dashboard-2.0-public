@@ -17,6 +17,7 @@ export const PocketsmithContext = createContext<{
     limits: [],
     mortgageAccounts: [],
     nonLiquidAssets: [],
+    liquidAssets: [],
     goalDistribution: [
       {
         key: '',
@@ -61,15 +62,18 @@ export default function PocketsmithContextProvider({
       },
       {
         name: 'investment',
-        accountIds: [1201357, 1201823, 1203283, 1217816],
+        accountIds: [
+          1201357, 1201823, 1203283, 1217816, 2712487, 2712490, 2712493,
+          2712496, 27122502, 2712505, 2712508, 2712511
+        ],
         // first 2 accounts missing
 
         accounts: [],
         groupBalance: 0
       },
       {
-        name: 'house',
-        accountIds: [1586118, 1586115, 835889],
+        name: 'House & Mortgage',
+        accountIds: [1586118, 1586115, 835889, 2712064],
         // first 2 accounts missing
         accounts: [],
         groupBalance: 0
@@ -107,18 +111,20 @@ export default function PocketsmithContextProvider({
       },
       {
         name: 'other',
-        accountIds: [
-          2712064, 2712484, 2712487, 2712490, 2712493, 2712496, 27122502,
-          2712505, 2712508, 2712511
-        ],
+        accountIds: [2712484],
         accounts: [],
         groupBalance: 0
       }
     ],
-    limits: [140000, 140000, 20000, 110000, 50000],
-    mortgageAccounts: [1586124, 1586127, 1586121, 1586118, 1586115],
+    limits: [20000, 110000, 50000, 140000, 140000],
+    mortgageAccounts: [1586124, 1586127, 1586121, 1586118, 1586115, 2712064],
     nonLiquidAssets: [
       835889, 1201432, 1201827, 1203282, 1217814, 1586115, 1586118
+    ],
+    liquidAssets: [
+      1199010, 1200456, 1201345, 1201346, 1201347, 1203196, 1203197, 1203198,
+      1203199, 1203200, 1203277, 1586121, 1586124, 1586127, 2323223, 2323226,
+      2323229, 2712484, 825819, 826674, 825924
     ],
     goalDistribution: [
       { key: 'Savings', value: 10 },
@@ -126,7 +132,8 @@ export default function PocketsmithContextProvider({
       { key: 'Real Estate', value: 20 },
       { key: 'Cards', value: 5 },
       { key: 'German Accounts', value: 5 },
-      { key: 'Insurance', value: 20 }
+      { key: 'Insurance', value: 20 },
+      { key: 'Other', value: 0 }
     ]
   }
 

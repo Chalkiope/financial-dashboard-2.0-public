@@ -14,6 +14,7 @@ export type AddedAccountDataType = {
   limits: number[]
   mortgageAccounts: number[]
   nonLiquidAssets: number[]
+  liquidAssets: number[]
   goalDistribution: { key: string; value: number }[]
 }
 

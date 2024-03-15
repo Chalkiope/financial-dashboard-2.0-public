@@ -4,9 +4,9 @@ import s from './Dashboard.module.scss'
 import { AccountGroupContainer } from '../account-group-container/AccountGroupContainer'
 import { NetWorth } from '../net-worth/NetWorth'
 import { AssetDistribution } from '../asset-distribution/AssetDistribution'
+import { MortgageBreakdown } from '../mortgage-breakdown/MortgageBreakdown'
 
 export const Dashboard = () => {
-
   return (
     <main className={s.dashboardWrapper}>
       <Section title="Accounts">
@@ -15,6 +15,9 @@ export const Dashboard = () => {
       <Section title="Net Worth" columns={2}>
         <NetWorth />
         <AssetDistribution />
+      </Section>
+      <Section title="Mortgage Breakdown">
+        <MortgageBreakdown />
       </Section>
     </main>
   )

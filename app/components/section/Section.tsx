@@ -11,16 +11,13 @@ export const Section = ({
   columns?: number
   children: React.ReactNode
 }) => {
-  
-
+  console.log(columns)
 
   return (
     <>
       <section className={s.section}>
         <h2 className={s.sectionTitle}>{title}</h2>
-        <Container columns={columns}>
-          {children}
-        </Container>
+        <Container columns={columns}>{children}</Container>
       </section>
     </>
   )
