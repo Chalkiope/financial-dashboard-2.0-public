@@ -12,8 +12,9 @@ import {
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
 
-export const MortgageGraph = () => {
+export const MortgageProcessGraph = ({accountData}: {accountData: AccountType[]}) => {
   const { accounts, addedAccountdata } = useContext(PocketsmithContext)
+  const [mortgageData, setMortgageData] = useState<mortgageDataType[]>([])
 
   ChartJS.register(
     CategoryScale,
@@ -23,72 +24,64 @@ export const MortgageGraph = () => {
     Tooltip,
     Legend
   )
+  // console.log(accountData)
 
   // const [accountData, setAccountsData] = useState([]);
   // const [mortgageAccounts, setMortgageAccounts] = useState([]);
 
-  let mortgageData = [
-    ['Fix 3', 0, 0],
-    ['Fix 1', 0, 0],
-    ['Wedding', 0, 0],
-    ['Joint', 0, 0],
-    ['Trip', 0, 0]
-  ]
-  const [defaultData, setDefaultData] = useState(mortgageData)
-
-  let accArr: AccountType[] = []
-
-  // loop through all account data
-  // get only the accounts that have id from mortgageAccounts array
-  // push those accounts to accArr array
-  const getMortgageAccounts = () => {
-    accounts.map((account) => {
-      if (
-        account.id &&
-        addedAccountdata.mortgageAccounts.includes(account.id)
-      ) {
-        // bit hacky... separate 2 fix loans
-        if (account.transaction_accounts && account.id === 2712064) {
-          accArr.push(account?.transaction_accounts[0])
-          accArr.push(account?.transaction_accounts[1])
-        } else {
-          accArr.push(account)
-        }
-      }
-    })
-    // console.log(accArr)
+  interface mortgageDataType {
+    accountName: string | undefined, 
+    available: number, 
+    debt: number
   }
+
+
+  let tempData: mortgageDataType[] = []
+  const [defaultData, setDefaultData] = useState([])
 
   // Add custom properties for limit, debt and balance in accArr array
   const createDataSet = () => {
-    accArr.map((account, index) => {
+    // console.log(accountData)
+    accountData.map((account, index) => {
+      // console.log(account)
       let limit = addedAccountdata.limits[index]
+      // console.log(limit)
       let debt = account.current_balance ? account.current_balance * -1 : 0
-      mortgageData[index][2] = debt
-      mortgageData[index][1] = limit - debt
+      // console.log(debt)
+      // tempData[index][0] = account.title
+      // tempData[index][2] = debt
+      // tempData[index][1] = limit - debt
+      tempData.push({
+        accountName: account.title,
+        available: addedAccountdata.limits[index],
+        debt: account.current_balance ? account.current_balance * -1 : 0
+      })
     })
 
-    // update state with mortgage accounts data and custom properties
-    setDefaultData(mortgageData)
+  //   // update state with mortgage accounts data and custom properties
+    // setDefaultData(mortgageData)
+    // console.log('updated: ', defaultData)
+    setMortgageData(tempData)
   }
 
   useEffect(() => {
-    getMortgageAccounts()
     createDataSet()
-  }, [accounts])
+    // console.log(mortgageData)
+  }, [accountData])
 
   const data = {
     labels: ['Wedding', 'Joint', 'Trip', 'Fix 2', 'Fix 1'],
+    // labels: accountData.map((account) => account.title),
     datasets: [
       {
         label: 'Paid off',
-        data: defaultData.map((value) => value[1]),
+        data: mortgageData.map((value) => value[1]),
         yAxisID: 'y-axis',
         backgroundColor: '#65b891'
       },
       {
         label: 'Remaining',
-        data: defaultData.map((value) => value[2]),
+        data: mortgageData.map((value) => value[2]),
         backgroundColor: '#f48668'
       }
     ]
@@ -96,6 +89,7 @@ export const MortgageGraph = () => {
 
   const options = {
     indexAxis: 'y' as const,
+    // catAxis: 'x' as const,
     responsive: true,
     plugins: {
       legend: {
@@ -133,34 +127,31 @@ export const MortgageGraph = () => {
       },
 
       y: {
-        // position: {
-        //   y: 20
-        // },
+        position: {
+          x: 0
+        },
+        border: {
+          display: false,
+          color: '#ffffff' // turn off
+        },
+        stacked: true,
+        ticks: {
+          display: false,
+        },
+        grid: {
+          display: false,
+        }
+      },
+      'y-axis': {
+        position: {x: 12000},
         border: {
           display: false
         },
         stacked: true,
         ticks: {
-          display: false
-        },
-        grid: {
-          display: false,
-          ticks: {
-            display: false
-          }
-        }
-      },
-      'y-axis': {
-        // position: { x: 20 },
-        border: {
-          display: false
-        },
-        // z: 100,
-        ticks: {
-          // crossAlign: 'far',
-          // align: 'end',
-          padding: 20,
-          mirror: true,
+          crossAlign: 'far',
+          padding:  20,
+          // mirror: true,
           z: 100,
           display: true,
           color: '#ffffff',
@@ -177,10 +168,11 @@ export const MortgageGraph = () => {
   }
 
   // console.log(data)
-  if (!accounts || !addedAccountdata) return <></>
+  if (!accountData || !addedAccountdata) return <></>
 
   return (
     <>
+      {/* <Bar data={data2} options={options2} /> */}
       <Bar data={data} options={options} />
     </>
   )
