@@ -22,7 +22,7 @@ export function renderChart() {
     // initiate chart display
     chart.draw()
 
-    console.log(chart.data)
+    // console.log(chart.data)
   })
 }
 

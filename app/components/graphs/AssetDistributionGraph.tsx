@@ -36,7 +36,6 @@ export const AssetDistributionGraph = ({
         value: group.value
       })
     })
-    console.log(assetData)
     return { assetData, goalData }
   }
 

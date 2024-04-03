@@ -12,8 +12,14 @@ import {
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
 
-export const MortgageBreakdownGraph = ({accountData}: {accountData: AccountType[]}) => {
-    const { accounts, addedAccountdata } = useContext(PocketsmithContext)
+export const MortgageBreakdownGraph = ({
+  accountData
+}: {
+  accountData: AccountType[]
+}) => {
+  const { accounts, addedAccountdata } = useContext(PocketsmithContext)
+  const [balances, setBalances] = useState<number[]>([])
+  const [titles, setTitles] = useState<string[]>([])
 
   ChartJS.register(
     CategoryScale,
@@ -25,38 +31,55 @@ export const MortgageBreakdownGraph = ({accountData}: {accountData: AccountType[
   )
 
   useEffect(() => {
-  }, [accounts])
+    let balances: number[] = []
+    let titles: string[] = []
+    accountData.map((account, i) => {
+      if (account.current_balance !== undefined) {
+        if (account.current_balance < 0) {
+          balances.push(account?.current_balance * -1)
+        } else if (account.current_balance == 0) {
+          balances.push(0)
+        } else {
+          balances.push(account.current_balance)
+        }
+      }
+      titles.push(account.title || account.name)
+    })
+
+    setBalances(balances)
+    setTitles(titles)
+  }, [accountData])
 
   const data = {
     labels: ['Breakdown'],
     datasets: [
-        {
-          label: 'Paid off',
-          data: [10],
-          yAxisID: 'y-axis',
-          backgroundColor: '#65b891'
-        },
-        {
-          label: 'Remaining',
-          data: [30],
-          backgroundColor: '#f48668'
-        },
-        {
-            label: 'Remaining',
-            data: [30],
-            backgroundColor: '#f48668'
-          },
-          {
-            label: 'Remaining',
-            data: [30],
-            backgroundColor: '#f48668'
-          },
-          {
-            label: 'Remaining',
-            data: [30],
-            backgroundColor: '#f48668'
-          }
-      ]
+      {
+        label: titles[1],
+        data: [balances[1]],
+        // yAxisID: 'y-axis',
+        backgroundColor: '#f48668'
+      },
+      {
+        label: titles[0],
+        data: [balances[0]],
+        backgroundColor: '#ffffff'
+      },
+      {
+        label: titles[2],
+        data: [balances[2]],
+        backgroundColor: '#b5ffe1'
+      },
+      {
+        label: titles[3],
+        data: [balances[3]],
+        backgroundColor: '#dd614a'
+      },
+      {
+        label: titles[4],
+        data: [balances[4]],
+        backgroundColor: '#f48668'
+      }
+    ]
     // datasets: [
     //   {
     //     label: ['Wedding', 'Joint', 'Trip', 'Fix 2', 'Fix 1'],
@@ -127,10 +150,9 @@ export const MortgageBreakdownGraph = ({accountData}: {accountData: AccountType[
 
   if (!accounts || !addedAccountdata) return <></>
 
-
   return (
     <>
-    <Bar data={data} options={options} />
-    </>  
+      <Bar data={data} options={options} />
+    </>
   )
 }

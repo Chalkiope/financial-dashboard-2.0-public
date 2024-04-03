@@ -45,21 +45,20 @@ export const MortgageBreakdown = () => {
     getMortgageAccounts()
   }, [accounts])
 
-  console.log(localAccData)
+  // console.log(localAccData)
 
   return (
     <>
       <div className="col1-container">
         <div id="mortgage-breakdown-container">
-          <MortgageBreakdownGraph accountData={localAccData}/>
+          <MortgageBreakdownGraph accountData={localAccData} />
         </div>
       </div>
       {/* <div className='divider'></div> */}
       <h2 className="section-title">Mortgage Repayment Progress</h2>
       <div className="col1-container">
-      <MortgageProcessGraph accountData={localAccData}/>
-      <MortgageGraph />
-        
+        <MortgageProcessGraph accountData={localAccData} />
+        <MortgageGraph />
       </div>
     </>
   )

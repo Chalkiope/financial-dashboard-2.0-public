@@ -9,7 +9,6 @@ export const NetWorth = () => {
   const [liquidNetWorth, setLiquidNetWorth] = useState(0)
 
   const { accounts, addedAccountdata } = useContext(PocketsmithContext)
-  console.log(accounts)
 
   const getTotalNetWorth = () => {
     // sum everything up

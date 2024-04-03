@@ -11,8 +11,6 @@ export const Section = ({
   columns?: number
   children: React.ReactNode
 }) => {
-  console.log(columns)
-
   return (
     <>
       <section className={s.section}>
