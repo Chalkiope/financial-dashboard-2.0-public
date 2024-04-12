@@ -14,22 +14,34 @@
   }
 }
 
-.closed {
-  width: 44px;
+// .closed {
+//   width: 44px;
 
-  .logo-bg {
-    width: 44px;
-  }
+//   .logo-bg {
+//     width: 44px;
+//   }
 
-  .inancial,
-  .igest {
-    opacity: 0;
-  }
+//   .inancial,
+//   .igest {
+//     opacity: 0;
+//   }
 
-  .f {
-    transform: translateX(-8px);
-  }
-  .d {
-    transform: translateX(-154px);
-  }
+//   .f {
+//     transform: translateX(-8px);
+//   }
+//   .d {
+//     transform: translateX(-154px);
+//   }
+// }
+
+.inancial,
+.igest {
+  opacity: 0;
+}
+
+.f {
+  transform: translateX(-8px);
+}
+.d {
+  transform: translateX(-154px);
 }

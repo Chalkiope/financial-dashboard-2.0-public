@@ -1,34 +1,56 @@
 @import '../../styles/settings';
 
 .tile {
-    padding: 20px;
-    margin: 10px;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    flex: auto 1 1;
+  padding: 20px;
+  margin: 10px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  flex: auto 1 1;
 }
 
 .net-worth-container {
-    background-color: $oceanGreen;
+  background-color: $oceanGreen;
 
-    & > div {
-        margin-bottom: 20px;
+  & > div {
+    margin-bottom: 20px;
 
-        &.networth-liquid {
-            border-top: 2px solid $darkGreen;
-            padding-top: 20px;
-        }
+    &.networth-liquid {
+      border-top: 2px solid $darkGreen;
+      padding-top: 20px;
     }
+  }
 
-    & h2 {
-        color: $darkGreen;
-    }
+  & .title {
+    display: flex;
+    align-items: center;
+  }
 
-    & p {
-        color: $darkGreen;
-        margin: 10px 0 0 0;
-        font-size: 22px;
-        font-weight: 400;
-    }
+  & h2 {
+    color: $darkGreen;
+    position: relative;
+  }
+  & .tooltip {
+    position: relative;
+    bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 15px;
+    margin-left: 5px;
+    width: 10px;
+    height: 10px;
+    font-size: 10px;
+    color: white;
+    padding: 6px 5px 4px 5px;
+    cursor: pointer;
+  }
+
+  & p {
+    color: $darkGreen;
+    margin: 10px 0 0 0;
+    font-size: 22px;
+    font-weight: 400;
+  }
 }

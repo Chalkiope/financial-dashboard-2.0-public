@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend
 } from 'chart.js'
+import type { ChartOptions } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
 
 export const MortgageBreakdownGraph = ({
@@ -89,9 +90,10 @@ export const MortgageBreakdownGraph = ({
     // ]
   }
 
-  const options = {
+  const options: ChartOptions<'bar'> = {
     indexAxis: 'y' as const,
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         align: 'start',
@@ -100,9 +102,7 @@ export const MortgageBreakdownGraph = ({
           font: {
             family: 'Overpass',
             size: 12
-          },
-          onHover: /* handleHover */ () => {},
-          onLeave: /* handleLeave */ () => {}
+          }
         }
       }
     },
@@ -122,15 +122,11 @@ export const MortgageBreakdownGraph = ({
         },
         grid: {
           display: false,
-          tickColor: '#ffffff',
-          drawBorder: false
+          tickColor: '#ffffff'
         }
       },
 
       y: {
-        // position: {
-        //   y: 20
-        // },
         border: {
           display: false
         },
@@ -140,9 +136,7 @@ export const MortgageBreakdownGraph = ({
         },
         grid: {
           display: false,
-          ticks: {
-            display: false
-          }
+          drawTicks: false
         }
       }
     }
@@ -151,8 +145,8 @@ export const MortgageBreakdownGraph = ({
   if (!accounts || !addedAccountdata) return <></>
 
   return (
-    <>
+    <div style={{ position: 'relative', width: '100%', height: '20vh' }}>
       <Bar data={data} options={options} />
-    </>
+    </div>
   )
 }

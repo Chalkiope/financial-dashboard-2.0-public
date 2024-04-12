@@ -1,9 +1,12 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import s from './AccountGroup.module.scss'
 import { Account } from './account/Account'
 import { AccountType } from '@/app/api/types'
-import {useGermanNumberFormat} from '@/app/hooks/useGermanNumberFormat'
+import { useGermanNumberFormat } from '@/app/hooks/useGermanNumberFormat'
 import { useFormattedText } from '@/app/hooks/useFormattedText'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
+import { Container } from '../../container/Container'
 
 export const AccountGroup = ({
   groupName,
@@ -14,9 +17,17 @@ export const AccountGroup = ({
   groupAccounts: AccountType[]
   groupBalance: number
 }) => {
+  const groupRef = useRef<HTMLDivElement | null>(null)
   const [open, setOpen] = useState(false)
 
-  // console.log(open)
+  useGSAP(() => {
+    gsap.to(groupRef.current, {
+      height: open ? 'auto' : '0px',
+      duration: 0.5,
+      delay: 0,
+      ease: 'power1.inOut'
+    })
+  }, [open])
 
   return (
     <>
@@ -35,7 +46,11 @@ export const AccountGroup = ({
         </div>
         <div className={s.groupBalance}>
           <h4>Combined Balance</h4>
-          <h3 className={`${s.accountGroupBalance} ${(groupBalance < 0) ? s.negativeBalance : ''}`}>
+          <h3
+            className={`${s.accountGroupBalance} ${
+              groupBalance < 0 ? s.negativeBalance : ''
+            }`}
+          >
             {useGermanNumberFormat(groupBalance)}
             <span> NZ$</span>
           </h3>
@@ -50,24 +65,26 @@ export const AccountGroup = ({
         </button>
       </div>
       <div
-        className={`${s.group} ${s.accountGroup} ${s.col4Container} ${
-          open ? '' : s.isClosed
-        }`}
+        className={`${s.group} ${s.accountGroup}  ${open ? '' : s.isClosed}`}
         id={groupName}
+        ref={groupRef}
       >
-        {open &&
-          groupAccounts.map((account: AccountType, i) => {
+        <Container columns={4}>
+          {groupAccounts.map((account: AccountType, i) => {
             return (
               <>
                 <Account
+                  id={account.id}
                   name={`${account.title}`}
+                  exchangeRate={account.current_balance_exchange_rate || null}
                   balance={account.current_balance_in_base_currency || 0}
                   currency={`${account.currency_code}`}
                 />
               </>
             )
           })}
+        </Container>
       </div>
-      </>
+    </>
   )
 }

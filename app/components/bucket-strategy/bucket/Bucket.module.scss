@@ -1,0 +1,50 @@
+@import '../../../styles/settings';
+
+.bucket-outer {
+  width: 33%;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+
+  & .bucket-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    text-transform: uppercase;
+  }
+
+  & .bucket-subtitle {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+}
+
+.bucket-inner {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  flex-grow: 1;
+
+  &:hover .bucket-front {
+    transform: perspective(1000px) rotateY(-10deg);
+  }
+
+  &.flipped:hover .bucket-front {
+    transform: perspective(1000px) rotateY(-170deg) !important;
+  }
+
+  &.flipped .bucket-front {
+    transform: perspective(1000px) rotateY(-180deg) !important;
+  }
+
+  &:hover .bucket-back {
+    transform: perspective(1000px) rotateY(170deg);
+  }
+
+  &.flipped:hover .bucket-back {
+    transform: perspective(1000px) rotateY(10deg) !important;
+  }
+
+  &.flipped .bucket-back {
+    transform: perspective(1000px) rotateY(0deg) !important;
+  }
+}

@@ -16,6 +16,7 @@ export const PocketsmithContext = createContext<{
     accountGroups: [],
     limits: [],
     mortgageAccounts: [],
+    revolvingCredits: [],
     nonLiquidAssets: [],
     liquidAssets: [],
     goalDistribution: [
@@ -118,6 +119,7 @@ export default function PocketsmithContextProvider({
     ],
     limits: [20000, 110000, 50000, 140000, 140000],
     mortgageAccounts: [1586124, 1586127, 1586121, 1586118, 1586115, 2712064],
+    revolvingCredits: [1586124, 1586121, 1586127],
     nonLiquidAssets: [
       835889, 1201432, 1201827, 1203282, 1217814, 1586115, 1586118
     ],

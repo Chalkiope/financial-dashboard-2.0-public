@@ -1,6 +1,6 @@
 'use client'
 import s from './Header.module.scss'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Navigation } from '../navigation/Navigation'
 import { Logo } from '../logo/Logo'
 import gsap from 'gsap'
@@ -10,23 +10,16 @@ export const Header = () => {
   const [open, setOpen] = useState<boolean>(false)
 
   useGSAP(() => {
-    if (open) {
-      gsap.fromTo(
-        'header',
-        { width: '70px' },
-        { width: '350px', duration: 0.25, ease: 'power4.out' }
-      )
-    } else if (!open) {
-      gsap.fromTo(
-        'header',
-        { width: '350px' },
-        { width: '70px', duration: 0.25, ease: 'power4.out', delay: 0.25 }
-      )
-    }
+    gsap.to('header', {
+      width: open ? '350px' : '70px',
+      duration: 0.5,
+      delay: open ? 0 : 0.175,
+      ease: 'power1.inOut'
+    })
   }, [open])
 
   return (
-    <header className={`${s.header} ${open ? '' : s.closed}`}>
+    <header className={`${s.header} `}>
       <div className={s.pageTitle}>
         <Logo open={open} />
       </div>

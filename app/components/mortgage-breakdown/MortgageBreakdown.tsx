@@ -4,19 +4,12 @@ import { MortgageProcessGraph } from '../graphs/MortgageProcessGraph'
 import { PocketsmithContext } from '@/app/contexts/PocketsmithProvider'
 import { AccountType } from '@/app/api/types'
 import { MortgageGraph } from '../graphs/MortgageGraph'
+import s from './MortgageBreakdown.module.scss'
+import { OverallMortgageProcessGraph } from '../graphs/OverallMortgageProcessGraph'
 
 export const MortgageBreakdown = () => {
   const { accounts, addedAccountdata } = useContext(PocketsmithContext)
   const [localAccData, setLocalAccData] = useState<AccountType[]>([])
-
-  // let mortgageData = [
-  //   ['Fix 3', 0, 0],
-  //   ['Fix 1', 0, 0],
-  //   ['Wedding', 0, 0],
-  //   ['Joint', 0, 0],
-  //   ['Trip', 0, 0]
-  // ]
-  // const [defaultData, setDefaultData] = useState(mortgageData)
 
   let accArr: AccountType[] = []
 
@@ -50,15 +43,20 @@ export const MortgageBreakdown = () => {
   return (
     <>
       <div className="col1-container">
-        <div id="mortgage-breakdown-container">
+        {/* <div className={`${s.col1Container} ${s.graphContainer}`}>
+          <h2 className="section-title">Current Mortgage Breakdown</h2>
           <MortgageBreakdownGraph accountData={localAccData} />
+        </div> */}
+        {/* <div className={s.divider}></div> */}
+        <div className={`${s.col1Container} ${s.graphContainer}`}>
+          <h2 className="section-title">Current Mortgage Repayment Progress</h2>
+          <MortgageProcessGraph accountData={localAccData} />
         </div>
-      </div>
-      {/* <div className='divider'></div> */}
-      <h2 className="section-title">Mortgage Repayment Progress</h2>
-      <div className="col1-container">
-        <MortgageProcessGraph accountData={localAccData} />
-        <MortgageGraph />
+        <div className={s.divider}></div>
+        <div className={`${s.col1Container} ${s.graphContainer}`}>
+          <h2 className="section-title">Overall Mortgage Repayment Progress</h2>
+          <OverallMortgageProcessGraph accountData={localAccData} />
+        </div>
       </div>
     </>
   )

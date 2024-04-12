@@ -1,31 +1,45 @@
 import s from './Logo.module.scss'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
+import { useEffect, useRef } from 'react'
 
 export const Logo = ({ open }: { open: boolean }) => {
   useGSAP(() => {
-    // to do: make staggered animation with individual letters
-    if (open) {
-      // console.log('play')
-      gsap.fromTo('.logo-bg', { width: '44px' }, { width: '100%' })
-      gsap.fromTo(
-        ['.inancial', '.igest'],
-        { x: -5, opacity: 0 },
-        { x: 0, opacity: 1, duration: 1, delay: 0.2, ease: 'power4.out' }
-      )
-    } else if (!open) {
-      // console.log('reverse')
-      gsap.fromTo('.logo-bg', { width: '100%' }, { width: '44px' })
-      gsap.fromTo(
-        ['.inancial', '.igest'],
-        { x: 0, opacity: -5 },
-        { x: 1, opacity: 0, duration: 1, ease: 'power4.out' }
-      )
-    }
+    const tl = gsap.timeline({
+      ease: 'power1.inOut'
+    })
+    tl.to(
+      '.logo-bg',
+      {
+        width: open ? '290px' : '44px',
+        delay: open ? 0.125 : 0.175,
+        duration: 0.5
+      },
+      0
+    )
+    tl.to('.f', { x: open ? 0 : -8, duration: 0.5 }, 0)
+    tl.to('.d', { x: open ? 0 : -154, duration: 0.5 }, 0)
+    tl.to(
+      ['.inancial', '.igest'],
+      {
+        x: open ? 0 : -5,
+        opacity: open ? 1 : 0,
+        duration: 0.5
+      },
+      open ? '>' : '>-0.75'
+    )
+    tl.play()
+
+    // // to do: make staggered animation with individual letters
+    // if (open) {
+    //   tl.play()
+    // } else if (!open) {
+    //   tl.reverse()
+    // }
   }, [open])
 
   return (
-    <div className={`${s.logo} ${open ? '' : s.closed}`}>
+    <div className={s.logo}>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 290.21 44">
         <rect
           className={`${s.logoBg} logo-bg`}
@@ -35,7 +49,7 @@ export const Logo = ({ open }: { open: boolean }) => {
           rx="8.22"
         />
         <path
-          className={`${s.f} ${s.letter}`}
+          className={`${s.f} ${s.letter} f`}
           style={{ fill: '#274c45' }}
           d="M15.71,31.91V11.75H30v4.32H20.26v3.29h6.08v4.32H20.26v8.23Z"
         />
@@ -68,7 +82,7 @@ export const Logo = ({ open }: { open: boolean }) => {
           />
         </g>
         <path
-          className={`${s.d} ${s.letter}`}
+          className={`${s.d} ${s.letter} d`}
           style={{ fill: '#274c45' }}
           d="M175.45,31.91V11.75h7.66a11,11,0,0,1,4.52.85,8.46,8.46,0,0,1,3.05,2.3,9.44,9.44,0,0,1,1.73,3.25,12.71,12.71,0,0,1,.54,3.68,12.26,12.26,0,0,1-.52,3.49,9.67,9.67,0,0,1-1.69,3.26A8.34,8.34,0,0,1,187.68,31a10.84,10.84,0,0,1-4.69.91ZM180,27.56h3.42a4.51,4.51,0,0,0,2.23-.51,4.2,4.2,0,0,0,1.48-1.36,5.89,5.89,0,0,0,.83-1.86,7.7,7.7,0,0,0,.27-2,8,8,0,0,0-.27-2.06,5.82,5.82,0,0,0-.81-1.85,4.08,4.08,0,0,0-1.4-1.34,3.8,3.8,0,0,0-2-.51H180Z"
         />

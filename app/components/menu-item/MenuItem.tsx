@@ -31,7 +31,7 @@ export const MenuItem = ({
   return (
     <div className={s.menuItem} id={`${menuItemId}-menu-item`}>
       <Link
-        href={''}
+        href={menuItemId}
         // to={menuItemId}
         // spy={true}
         // smooth={true}

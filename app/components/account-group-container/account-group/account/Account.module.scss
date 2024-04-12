@@ -2,6 +2,7 @@
 
 .account {
   background-color: $teal;
+  position: relative;
 
   h2 {
     color: $white;
@@ -18,7 +19,7 @@
 
 .tile {
   padding: 20px;
-  margin: 10px;
+  // margin: 10px;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -39,5 +40,14 @@
 }
 
 .negative-balance {
-    background-color: $fireOpal;
+  background-color: $fireOpal;
+}
+
+.icon {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  display: block;
+  height: 25px;
+  width: 25px;
 }

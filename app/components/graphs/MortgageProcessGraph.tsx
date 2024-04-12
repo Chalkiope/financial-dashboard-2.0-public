@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend
 } from 'chart.js'
+import type { ChartOptions } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
 
 export const MortgageProcessGraph = ({
@@ -28,10 +29,6 @@ export const MortgageProcessGraph = ({
     Tooltip,
     Legend
   )
-  console.log(accountData)
-
-  // const [accountData, setAccountsData] = useState([]);
-  // const [mortgageAccounts, setMortgageAccounts] = useState([]);
 
   interface mortgageDataType {
     accountName: string | undefined
@@ -41,21 +38,19 @@ export const MortgageProcessGraph = ({
   }
 
   let tempData: mortgageDataType[] = []
-  const [defaultData, setDefaultData] = useState([])
 
   // Add custom properties for limit, debt and balance in accArr array
   const createDataSet = () => {
-    // console.log(accountData)
+    let totalLimit = 0
+    let totalDebt = 0
+    let totalAvailable = 0
     accountData.map((account, index) => {
-      // console.log(account)
       let limit = addedAccountdata.limits[index]
-      console.log(limit)
+      totalLimit += limit
       let debt = account.current_balance ? account.current_balance * -1 : 0
+      totalDebt += debt
       let available = limit - debt
-      console.log(debt)
-      // tempData[index][0] = account.title
-      // tempData[index][2] = debt
-      // tempData[index][1] = limit - debt
+      totalAvailable += available
       tempData.push({
         accountName: account.title,
         available: available,
@@ -63,40 +58,22 @@ export const MortgageProcessGraph = ({
         limit: limit
       })
     })
+    tempData.push({
+      accountName: 'Total',
+      available: totalAvailable,
+      debt: totalDebt,
+      limit: totalLimit
+    })
 
-    //   // update state with mortgage accounts data and custom properties
-    // setDefaultData(mortgageData)
-    // console.log('updated: ', defaultData)
     setMortgageData(tempData)
   }
 
   useEffect(() => {
     createDataSet()
-    console.log(mortgageData)
   }, [accountData])
 
-  const data2 = {
-    labels: ['Wedding', 'Joint', 'Trip', 'Fix 2', 'Fix 1'],
-    // labels: accountData.map((account) => account.title || account.name),
-    datasets: [
-      {
-        label: 'Paid off',
-        // data: [...mortgageData.map((value) => value.available)],
-        data: [10],
-        // yAxisID: 'y-axis',
-        backgroundColor: '#65b891'
-      },
-      {
-        label: 'Remaining',
-        // yAxisID: 'y-axis',
-        // data: [...mortgageData.map((value) => value.debt)],
-        data: [10],
-        backgroundColor: '#f48668'
-      }
-    ]
-  }
   const data = {
-    labels: ['Wedding', 'Joint', 'Trip', 'Fix 2', 'Fix 1'],
+    labels: ['Wedding', 'Joint', 'Trip', 'Fix 2', 'Fix 1', 'Total'],
     datasets: [
       {
         label: 'Paid off',
@@ -109,27 +86,14 @@ export const MortgageProcessGraph = ({
         data: [...mortgageData.map((value) => value.debt)],
         backgroundColor: '#f48668'
       }
-      // {
-      //   label: 'limit',
-      //   data: [...mortgageData.map((value) => value.limit)],
-      //   backgroundColor: '#b5ffe1'
-      // }
     ]
-    // datasets: [
-    //   {
-    //     label: ['Wedding', 'Joint', 'Trip', 'Fix 2', 'Fix 1'],
-    //     data: [10, 10, 10, 20, 20],
-    //     backgroundColor: ['#65b891', '#f48668', '#65b891', '#f48668', '#65b891']
-    //   }
-    // ]
   }
 
-  console.log(data)
-
-  const options = {
+  const options: ChartOptions<'bar'> = {
     indexAxis: 'y' as const,
     // catAxis: 'x' as const,
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         align: 'start',
@@ -138,9 +102,9 @@ export const MortgageProcessGraph = ({
           font: {
             family: 'Overpass',
             size: 12
-          },
-          onHover: /* handleHover */ () => {},
-          onLeave: /* handleLeave */ () => {}
+          }
+          // onHover: /* handleHover */ () => {},
+          // onLeave: /* handleLeave */ () => {}
         }
       }
     },
@@ -160,15 +124,13 @@ export const MortgageProcessGraph = ({
         },
         grid: {
           display: false,
-          tickColor: '#ffffff',
-          drawBorder: false
+          tickColor: '#ffffff'
+          // drawBorder: false
         }
       },
 
       y: {
-        position: {
-          x: 0
-        },
+        position: { x: 0 },
         border: {
           display: false,
           color: '#ffffff' // turn off
@@ -182,15 +144,15 @@ export const MortgageProcessGraph = ({
         }
       },
       'y-axis': {
-        position: { x: 12000 },
+        position: { x: 50000 },
         border: {
           display: false
         },
-        stacked: true,
+        // stacked: true,
         ticks: {
-          crossAlign: 'far',
+          crossAlign: 'near',
           padding: 20,
-          // mirror: true,
+          mirror: true,
           z: 100,
           display: true,
           color: '#ffffff',
@@ -210,9 +172,9 @@ export const MortgageProcessGraph = ({
   if (!accountData || !addedAccountdata) return <></>
 
   return (
-    <>
+    <div style={{ position: 'relative', width: '100%', height: '30vh' }}>
       {/* <Bar data={data2} options={options2} /> */}
       <Bar data={data} options={options} />
-    </>
+    </div>
   )
 }

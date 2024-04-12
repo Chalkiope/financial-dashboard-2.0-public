@@ -5,19 +5,26 @@ import { AccountGroupContainer } from '../account-group-container/AccountGroupCo
 import { NetWorth } from '../net-worth/NetWorth'
 import { AssetDistribution } from '../asset-distribution/AssetDistribution'
 import { MortgageBreakdown } from '../mortgage-breakdown/MortgageBreakdown'
+import { BucketStrategy } from '../bucket-strategy/BucketStrategy'
 
 export const Dashboard = () => {
   return (
     <main className={s.dashboardWrapper}>
-      <Section title="Accounts">
+      <Section title="Accounts" scrollToId={'accounts'}>
         <AccountGroupContainer />
       </Section>
-      <Section title="Net Worth" columns={2}>
+      <Section title="Net Worth" columns={2} scrollToId={'asset-summary'}>
         <NetWorth />
         <AssetDistribution />
       </Section>
-      <Section title="Mortgage Breakdown">
+      <Section title="Mortgage" scrollToId={'mortgage'}>
         <MortgageBreakdown />
+      </Section>
+      <Section title="Bucket Strategy" scrollToId={'bucket-strategy'}>
+        <BucketStrategy />
+      </Section>
+      <Section title="Investments" scrollToId={'investments'}>
+        <></>
       </Section>
     </main>
   )

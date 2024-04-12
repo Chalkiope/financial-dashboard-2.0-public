@@ -13,6 +13,7 @@ export type AddedAccountDataType = {
   accountGroups: AccountGroupType[]
   limits: number[]
   mortgageAccounts: number[]
+  revolvingCredits: number[]
   nonLiquidAssets: number[]
   liquidAssets: number[]
   goalDistribution: { key: string; value: number }[]
