@@ -1,0 +1,8 @@
+@import '../../../../styles/settings';
+
+.bucket-3 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: $bucketGap;
+}

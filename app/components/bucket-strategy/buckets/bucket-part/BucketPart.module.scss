@@ -1,0 +1,48 @@
+@import '../../../../styles/settings';
+
+.part {
+  display: flex;
+  padding: 20px;
+  flex-grow: 1;
+  flex-shrink: 1;
+  gap: $bucketGap;
+
+  &.collapse-padding {
+    padding: 0;
+  }
+
+  & .label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    & h3,
+    & span {
+      margin: 0;
+    }
+  }
+
+  &.front {
+    background-color: $celadon;
+
+    & .label {
+      & h3,
+      & span {
+        color: $teal;
+      }
+    }
+  }
+  &.back {
+    background-color: $darkGreen;
+
+    & .label {
+      & h3,
+      & span {
+        color: $magicMint;
+      }
+    }
+  }
+  &.transparent {
+    background-color: transparent;
+  }
+}

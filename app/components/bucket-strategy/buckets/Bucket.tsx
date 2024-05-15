@@ -4,11 +4,13 @@ import s from './Bucket.module.scss'
 export const Bucket = ({
   title,
   subtitle,
-  children
+  childrenFront,
+  childrenBack
 }: {
   title: string
   subtitle: string
-  children: ReactNode
+  childrenFront: ReactNode
+  childrenBack: ReactNode
 }) => {
   const [flipped, setFlipped] = useState(false)
 
@@ -20,9 +22,10 @@ export const Bucket = ({
         onClick={() => {
           setFlipped(!flipped)
         }}
-        className={`${s.bucketInner} ${flipped ? s.flipped : ''}`}
+        className={`${s.bucketCard} ${flipped ? s.flipped : ''}`}
       >
-        {children}
+        <div className={`${s.bucket} ${s.bucketFront}`}>{childrenFront}</div>
+        <div className={`${s.bucket} ${s.bucketBack}`}>{childrenBack}</div>
       </div>
     </div>
   )
