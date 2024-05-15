@@ -4,6 +4,7 @@ export interface AllDataType {
   accounts: AccountType[]
   user: UserType
   addedAccountdata: AddedAccountDataType
+  dummyData: AccountType[]
 }
 
 export type AccountType = components['schemas']['Account']
@@ -25,3 +26,5 @@ export type AccountGroupType = {
   accounts: AccountType[]
   groupBalance: number
 }
+
+export type DummyDataType = AccountType[]

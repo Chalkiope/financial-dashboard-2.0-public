@@ -32,8 +32,6 @@ export const OverallMortgageProcessGraph = ({
     limit: number
   }
 
-  console.log(accountData)
-
   ChartJS.register(
     CategoryScale,
     LinearScale,

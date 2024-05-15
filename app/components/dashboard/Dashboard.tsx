@@ -11,14 +11,17 @@ export const Dashboard = () => {
   return (
     <main className={s.dashboardWrapper}>
       <Section title="Accounts" scrollToId={'accounts'}>
+        <></>
         <AccountGroupContainer />
       </Section>
       <Section title="Net Worth" columns={2} scrollToId={'asset-summary'}>
         <NetWorth />
         <AssetDistribution />
+        <></>
       </Section>
       <Section title="Mortgage" scrollToId={'mortgage'}>
         <MortgageBreakdown />
+        <></>
       </Section>
       <Section title="Bucket Strategy" scrollToId={'bucket-strategy'}>
         <BucketStrategy />

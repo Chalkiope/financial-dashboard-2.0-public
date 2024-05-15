@@ -8,18 +8,26 @@ export const Bucket3Back = () => {
         name="Total World Fund"
         type="High Risk"
         side="back"
+        goalValue={700000}
+        currentValue={169688}
       />
       <BucketPart
         percentage={20}
         name="NZ 50 Fund"
         type="Medium Risk"
         side="back"
+        goalValue={200000}
+        currentValue={32504}
+        denseLayout
       />
       <BucketPart
         percentage={10}
         name="US Value Fund"
         type="High Risk"
         side="back"
+        goalValue={100000}
+        currentValue={28086}
+        denseLayout
       />
     </div>
   )

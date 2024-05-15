@@ -13,6 +13,8 @@ export const Bucket2Back = () => {
         name="AMP global fixed interest fund"
         type="Medium Risk"
         side="back"
+        goalValue={64000}
+        currentValue={51448.48}
       />
       <BucketPart
         percentage={50}
@@ -21,11 +23,32 @@ export const Bucket2Back = () => {
         transparent
         collapsePadding
       >
-        <BucketPart percentage={50} type="High Risk" side="back" />
+        <BucketPart
+          percentage={50}
+          type="High Risk"
+          side="back"
+          goalValue={64000}
+          currentValue={64000}
+        />
         <BucketPart percentage={50} side="back" collapsePadding transparent>
-          <BucketPart percentage={70} side="back" name="Total World Fund" />
-          <BucketPart percentage={20} side="back" name="NZ 50 Fund" />
-          <BucketPart percentage={10} side="back" name="US Value Fund" />
+          <BucketPart
+            percentage={70}
+            side="back"
+            name="Total World Fund"
+            hideValues
+          />
+          <BucketPart
+            percentage={20}
+            side="back"
+            name="NZ 50 Fund"
+            hideValues
+          />
+          <BucketPart
+            percentage={10}
+            side="back"
+            name="US Value Fund"
+            hideValues
+          />
         </BucketPart>
       </BucketPart>
     </div>

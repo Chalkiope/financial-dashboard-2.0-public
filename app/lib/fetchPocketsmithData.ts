@@ -1,43 +1,67 @@
+import DummyData from '../lib/dummyData.json'
 export const getUserData = async () => {
-  const myHeaders = new Headers();
+  const myHeaders = new Headers()
   myHeaders.append(
-    "X-Developer-Key",
+    'X-Developer-Key',
     `${process.env.NEXT_PUBLIC_POCKETSMITH_API_KEY}`
-  );
+  )
 
   return await fetch(
     `https://api.pocketsmith.com/v2/users/${process.env.NEXT_PUBLIC_POCKETSMITH_USER_ID}`,
     {
-      method: "GET",
+      method: 'GET',
       headers: myHeaders,
-      redirect: "follow",
+      redirect: 'follow'
     }
   )
     .then((response) => response.json())
     .then((result) => {
-      return result;
+      return result
     })
-    .catch((error) => console.log("error", error));
-};
+    .catch((error) => {
+      console.log('error', error)
+    })
+}
 
-export const getAccountData = async () => {
-  const myHeaders = new Headers();
+export const getAllAccountData = async () => {
+  const myHeaders = new Headers()
   myHeaders.append(
-    "X-Developer-Key",
+    'X-Developer-Key',
     `${process.env.NEXT_PUBLIC_POCKETSMITH_API_KEY}`
-  );
+  )
 
   return await fetch(
     `https://api.pocketsmith.com/v2/users/${process.env.NEXT_PUBLIC_POCKETSMITH_USER_ID}/accounts`,
     {
-      method: "GET",
+      method: 'GET',
       headers: myHeaders,
-      redirect: "follow",
+      redirect: 'follow'
     }
   )
     .then((response) => response.json())
     .then((result) => {
-      return result;
+      return result
     })
-    .catch((error) => console.log("error", error));
-};
+    .catch((error) => {
+      console.log('error', error)
+    })
+}
+
+export const getOneAccountData = async (id: number) => {
+  const myHeaders = new Headers()
+  myHeaders.append(
+    'X-Developer-Key',
+    `${process.env.NEXT_PUBLIC_POCKETSMITH_API_KEY}`
+  )
+
+  return await fetch(`https://api.pocketsmith.com/v2/accounts/${id}`, {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+  })
+    .then((response) => response.json())
+    .then((result) => {
+      return result
+    })
+    .catch((error) => console.log('error', error))
+}

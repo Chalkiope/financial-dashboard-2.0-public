@@ -6,6 +6,7 @@
   flex-grow: 1;
   flex-shrink: 1;
   gap: $bucketGap;
+  position: relative;
 
   &.collapse-padding {
     padding: 0;
@@ -15,6 +16,7 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
+    z-index: 2;
 
     & h3,
     & span {
@@ -24,6 +26,26 @@
 
   &.front {
     background-color: $celadon;
+    // &:before,
+    // &:after {
+    //   content: '';
+    //   position: absolute;
+    //   bottom: 0;
+    //   left: 0;
+    //   height: 100%;
+    // }
+
+    // &:before {
+    //   background-color: $celadon;
+    //   width: 100%;
+    //   z-index: 0;
+    // }
+
+    // &:after {
+    //   width: 75%;
+    //   background-color: darken($celadon, 10%);
+    //   z-index: 1;
+    // }
 
     & .label {
       & h3,
@@ -44,5 +66,27 @@
   }
   &.transparent {
     background-color: transparent;
+  }
+
+  & .values {
+    position: absolute;
+    bottom: 0;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    & .label {
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+  }
+
+  &.denseLayout {
+    & .values {
+      justify-content: space-between;
+      top: 0;
+      right: 1rem;
+    }
   }
 }

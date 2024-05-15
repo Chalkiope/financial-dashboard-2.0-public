@@ -1,9 +1,14 @@
 'use client'
 
 import React, { createContext, useEffect, useState } from 'react'
-import { getAccountData, getUserData } from '../lib/fetchPocketsmithData'
+import {
+  getAllAccountData,
+  getOneAccountData,
+  getUserData
+} from '../lib/fetchPocketsmithData'
 import { AccountType, AddedAccountDataType, UserType } from '../api/types'
 import { AccountGroupType } from '../api/types'
+import DummyData from '../lib/dummyData.json'
 
 export const PocketsmithContext = createContext<{
   accounts: AccountType[]
@@ -35,10 +40,19 @@ export default function PocketsmithContextProvider({
 }) {
   const [accounts, setAccounts] = useState<AccountType[]>([])
   const [user, setUser] = useState<UserType>({})
+  const dummyData: any[] = DummyData
 
   const getPocketsmithAccountData = async () => {
-    const response = await getAccountData()
-    setAccounts(response)
+    try {
+      const response = await getAllAccountData()
+      setAccounts(response)
+    } catch {
+      console.log('Dummy Data')
+      const response = dummyData
+      console.log(response)
+
+      setAccounts(response)
+    }
   }
 
   const getPocketSmithUserData = async () => {
@@ -83,7 +97,7 @@ export default function PocketsmithContextProvider({
         name: 'creditCards',
         accountIds: [
           1139080, 1201345, 1201346, 1203196, 1203197, 1203198, 1203199,
-          1203200, 1931014, 2323223, 2323226, 2323229, 2709889
+          1203200, 1931014, 2323223, 2323226, 2323229
         ],
         accounts: [],
         groupBalance: 0
@@ -139,10 +153,29 @@ export default function PocketsmithContextProvider({
     ]
   }
 
+  // const buckets: [
+  //   {
+  //     name: 'Bucket 1'
+  //     goalValue: 30000
+  //     description: 'Car Savings'
+  //   },
+  //   {
+  //     name: 'Bucket 2'
+  //     goalValue: 128000
+  //     description: 'Travel Plans'
+  //   },
+  //   {
+  //     name: 'Bucket 3'
+  //     goalValue: 1000000
+  //     description: 'Retirement'
+  //   }
+  // ]
+
   const addAPIAccountData = () => {
     // map over groups
     addedAccountdata.accountGroups.map((group: AccountGroupType, i: number) => {
       // map over all accounts
+      console.log(accounts)
       accounts.map((account: AccountType, i: number) => {
         // match up ids
         if (group.accountIds && group.accountIds.includes(account.id)) {
@@ -162,6 +195,9 @@ export default function PocketsmithContextProvider({
         // if(group.accountIds.includes(account.id)) {
         if (account.current_balance_in_base_currency) {
           balance += account.current_balance_in_base_currency
+        }
+        if (group.name === 'creditCards') {
+          console.log(account.current_balance_in_base_currency, balance)
         }
         // }
       })

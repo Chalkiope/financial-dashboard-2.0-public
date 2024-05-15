@@ -1,3 +1,4 @@
+'use client'
 import { useContext, useEffect, useState } from 'react'
 import s from './NetWorth.module.scss'
 import { useGermanNumberFormat } from '@/app/hooks/useGermanNumberFormat'
