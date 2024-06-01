@@ -1,4 +1,7 @@
 import DummyData from '../lib/dummyData.json'
+import { useContext } from 'react'
+import { PocketsmithContext } from '../contexts/PocketsmithProvider'
+
 export const getUserData = async () => {
   const myHeaders = new Headers()
   myHeaders.append(
@@ -30,6 +33,7 @@ export const getAllAccountData = async () => {
     `${process.env.NEXT_PUBLIC_POCKETSMITH_API_KEY}`
   )
 
+  // try {
   return await fetch(
     `https://api.pocketsmith.com/v2/users/${process.env.NEXT_PUBLIC_POCKETSMITH_USER_ID}/accounts`,
     {
@@ -38,7 +42,13 @@ export const getAllAccountData = async () => {
       redirect: 'follow'
     }
   )
-    .then((response) => response.json())
+    .then((response) => {
+      console.log(response)
+      if (!response.ok) {
+        return DummyData.dummyData
+      }
+      return response.json()
+    })
     .then((result) => {
       return result
     })

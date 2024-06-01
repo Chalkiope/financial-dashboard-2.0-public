@@ -1,10 +1,9 @@
 import { components } from './pocketsmith-schema'
 
 export interface AllDataType {
-  accounts: AccountType[]
+  accounts: AccountType[] | DummyDataAccount[]
   user: UserType
   addedAccountdata: AddedAccountDataType
-  dummyData: AccountType[]
 }
 
 export type AccountType = components['schemas']['Account']
@@ -23,8 +22,15 @@ export type AddedAccountDataType = {
 export type AccountGroupType = {
   name: string
   accountIds: (number | undefined)[]
-  accounts: AccountType[]
+  accounts: AccountType[] | DummyDataAccount[]
   groupBalance: number
 }
 
-export type DummyDataType = AccountType[]
+export type DummyDataAccount = {
+  id?: number | undefined
+  title?: string | undefined
+  currency_code?: string | undefined
+  current_balance?: number | undefined
+  current_balance_in_base_currency?: number | undefined
+  current_balance_exchange_rate?: number | undefined
+}

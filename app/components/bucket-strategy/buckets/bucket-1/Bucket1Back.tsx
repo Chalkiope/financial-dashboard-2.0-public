@@ -4,11 +4,11 @@ import { BucketPart } from '../bucket-part/BucketPart'
 import s from './Bucket1.module.scss'
 import { PocketsmithContext } from '@/app/contexts/PocketsmithProvider'
 import { getOneAccountData } from '@/app/lib/fetchPocketsmithData'
-import { AccountType } from '@/app/api/types'
+import { AccountType, DummyDataAccount } from '@/app/api/types'
 
 export const Bucket1Back = () => {
   const { accounts } = useContext(PocketsmithContext)
-  const [account, setAccount] = useState<AccountType>()
+  const [account, setAccount] = useState<AccountType | DummyDataAccount>()
 
   // const account = getOneAccountData(1203277)
 

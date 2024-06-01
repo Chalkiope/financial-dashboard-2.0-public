@@ -1,4 +1,4 @@
-import { AccountType } from '@/app/api/types'
+import { AccountType, DummyDataAccount } from '@/app/api/types'
 import { PocketsmithContext } from '@/app/contexts/PocketsmithProvider'
 import { useContext, useEffect, useState } from 'react'
 import {
@@ -36,7 +36,7 @@ export const MortgageGraph = () => {
   ]
   const [defaultData, setDefaultData] = useState(mortgageData)
 
-  let accArr: AccountType[] = []
+  let accArr: AccountType[] | DummyDataAccount[] = []
 
   // loop through all account data
   // get only the accounts that have id from mortgageAccounts array
@@ -48,7 +48,11 @@ export const MortgageGraph = () => {
         addedAccountdata.mortgageAccounts.includes(account.id)
       ) {
         // bit hacky... separate 2 fix loans
-        if (account.transaction_accounts && account.id === 2712064) {
+        if (
+          account.hasOwnProperty('transaction_accounts') &&
+          account.transaction_accounts &&
+          account.id === 2712064
+        ) {
           accArr.push(account?.transaction_accounts[0])
           accArr.push(account?.transaction_accounts[1])
         } else {

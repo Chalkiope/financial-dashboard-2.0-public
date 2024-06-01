@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react'
 import s from './NetWorth.module.scss'
 import { useGermanNumberFormat } from '@/app/hooks/useGermanNumberFormat'
 import { PocketsmithContext } from '@/app/contexts/PocketsmithProvider'
-import { AccountType } from '@/app/api/types'
+import { AccountType, DummyDataAccount } from '@/app/api/types'
 import CustomTooltip from '@/app/components/tooltip/Tooltip'
 
 export const NetWorth = () => {
@@ -15,7 +15,7 @@ export const NetWorth = () => {
   const getTotalNetWorth = () => {
     // sum everything up
     let totalBalance = 0
-    accounts.map((account: AccountType, i: number) => {
+    accounts.map((account: AccountType | DummyDataAccount, i: number) => {
       if (account.current_balance_in_base_currency) {
         totalBalance += account.current_balance_in_base_currency
       }
@@ -26,7 +26,7 @@ export const NetWorth = () => {
   const getLiquidNetWorth = () => {
     // check data behind this (what makes up the liquid net worth anyway?)
     let totalBalance = 0
-    accounts.map((account: AccountType, i: number) => {
+    accounts.map((account: AccountType | DummyDataAccount, i: number) => {
       if (account.current_balance_in_base_currency) {
         if (
           typeof account.id === 'number' &&

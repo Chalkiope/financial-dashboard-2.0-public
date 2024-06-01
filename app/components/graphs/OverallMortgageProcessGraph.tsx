@@ -1,4 +1,4 @@
-import { AccountType } from '@/app/api/types'
+import { AccountType, DummyDataAccount } from '@/app/api/types'
 import { PocketsmithContext } from '@/app/contexts/PocketsmithProvider'
 import { useContext, useEffect, useState } from 'react'
 import {
@@ -18,7 +18,7 @@ import s from './OverallMortgageProcessGraph.module.scss'
 export const OverallMortgageProcessGraph = ({
   accountData
 }: {
-  accountData: AccountType[]
+  accountData: AccountType[] | DummyDataAccount[]
 }) => {
   const { addedAccountdata } = useContext(PocketsmithContext)
   const [mortgageData, setMortgageData] = useState<ChartData<'bar'>>()
@@ -51,7 +51,10 @@ export const OverallMortgageProcessGraph = ({
     let totalAvailable = 0
 
     // recalculate debt depending on toggle states
-    const calcDebt = (account: AccountType, index: number) => {
+    const calcDebt = (
+      account: AccountType | DummyDataAccount,
+      index: number
+    ) => {
       if (maxRepay) {
         return account.current_balance ? account.current_balance * -1 : 0
       } else if (

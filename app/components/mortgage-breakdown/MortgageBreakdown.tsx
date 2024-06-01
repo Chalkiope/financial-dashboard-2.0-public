@@ -2,16 +2,18 @@ import { useContext, useEffect, useState } from 'react'
 import { MortgageBreakdownGraph } from '../graphs/MortgageBreakdownGraph'
 import { MortgageProcessGraph } from '../graphs/MortgageProcessGraph'
 import { PocketsmithContext } from '@/app/contexts/PocketsmithProvider'
-import { AccountType } from '@/app/api/types'
+import { AccountType, DummyDataAccount } from '@/app/api/types'
 import { MortgageGraph } from '../graphs/MortgageGraph'
 import s from './MortgageBreakdown.module.scss'
 import { OverallMortgageProcessGraph } from '../graphs/OverallMortgageProcessGraph'
 
 export const MortgageBreakdown = () => {
   const { accounts, addedAccountdata } = useContext(PocketsmithContext)
-  const [localAccData, setLocalAccData] = useState<AccountType[]>([])
+  const [localAccData, setLocalAccData] = useState<
+    AccountType[] | DummyDataAccount[]
+  >([])
 
-  let accArr: AccountType[] = []
+  let accArr: AccountType[] | DummyDataAccount[] = []
 
   // loop through all account data
   // get only the accounts that have id from mortgageAccounts array
@@ -23,7 +25,10 @@ export const MortgageBreakdown = () => {
         addedAccountdata.mortgageAccounts.includes(account.id)
       ) {
         // bit hacky... separate 2 fix loans
-        if (account.transaction_accounts && account.id === 2712064) {
+        if (
+          account.hasOwnProperty('transaction_accounts') &&
+          account.id === 2712064
+        ) {
           accArr.push(account?.transaction_accounts[0])
           accArr.push(account?.transaction_accounts[1])
         } else {
