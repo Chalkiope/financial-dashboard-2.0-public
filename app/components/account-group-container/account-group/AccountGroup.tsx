@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import s from './AccountGroup.module.scss'
 import { Account } from './account/Account'
-import { AccountType } from '@/app/api/types'
+import { AccountType, DummyDataAccount } from '@/app/api/types'
 import { useGermanNumberFormat } from '@/app/hooks/useGermanNumberFormat'
 import { useFormattedText } from '@/app/hooks/useFormattedText'
 import gsap from 'gsap'
@@ -14,7 +14,7 @@ export const AccountGroup = ({
   groupBalance
 }: {
   groupName: string
-  groupAccounts: AccountType[]
+  groupAccounts: AccountType[] | DummyDataAccount[]
   groupBalance: number
 }) => {
   const groupRef = useRef<HTMLDivElement | null>(null)
@@ -70,19 +70,22 @@ export const AccountGroup = ({
         ref={groupRef}
       >
         <Container columns={4}>
-          {groupAccounts.map((account: AccountType, i) => {
-            return (
-              <>
-                <Account
-                  id={account.id}
-                  name={`${account.title}`}
-                  exchangeRate={account.current_balance_exchange_rate || null}
-                  balance={account.current_balance_in_base_currency || 0}
-                  currency={`${account.currency_code}`}
-                />
-              </>
-            )
-          })}
+          {groupAccounts.map(
+            (account: AccountType | DummyDataAccount, i: number) => {
+              console.log(account)
+              return (
+                <>
+                  <Account
+                    id={account.id}
+                    name={`${account.title}`}
+                    exchangeRate={account.current_balance_exchange_rate || null}
+                    balance={account.current_balance_in_base_currency || 0}
+                    currency={`${account.currency_code}`}
+                  />
+                </>
+              )
+            }
+          )}
         </Container>
       </div>
     </>

@@ -1,0 +1,60 @@
+{
+  "dummyData": [
+    {
+      "id": 1139080,
+      "title": "AMEX",
+      "currency_code": "nzd",
+      "current_balance": -1234.56,
+      "current_balance_in_base_currency": -3976.37,
+      "current_balance_exchange_rate": null
+    },
+    {
+      "id": 1201345,
+      "title": "Master Card",
+      "currency_code": "nzd",
+      "current_balance": -50.0,
+      "current_balance_in_base_currency": -3976.37,
+      "current_balance_exchange_rate": null
+    },
+    {
+      "id": 1586124,
+      "title": "Transaction Account",
+      "currency_code": "nzd",
+      "current_balance": 2500.0,
+      "current_balance_in_base_currency": 2500.0,
+      "current_balance_exchange_rate": null
+    },
+    {
+      "id": 1586127,
+      "title": "Transaction Account",
+      "currency_code": "eur",
+      "current_balance": 2500.0,
+      "current_balance_in_base_currency": 4507.5,
+      "current_balance_exchange_rate": 1.8032574732020468
+    },
+    {
+      "id": 1586118,
+      "title": "Mortgage Fixed 1 year",
+      "currency_code": "nzd",
+      "current_balance": -250000.0,
+      "current_balance_in_base_currency": -250000.0,
+      "current_balance_exchange_rate": null
+    },
+    {
+      "id": 1586115,
+      "title": "Mortgage Fixed 2 years",
+      "currency_code": "nzd",
+      "current_balance": -150000.0,
+      "current_balance_in_base_currency": -150000.0,
+      "current_balance_exchange_rate": null
+    },
+    {
+      "id": 1201357,
+      "title": "Investments",
+      "currency_code": "nzd",
+      "current_balance": 50000.0,
+      "current_balance_in_base_currency": 50000.0,
+      "current_balance_exchange_rate": null
+    }
+  ]
+}

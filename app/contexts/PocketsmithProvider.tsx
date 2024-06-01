@@ -6,14 +6,20 @@ import {
   getOneAccountData,
   getUserData
 } from '../lib/fetchPocketsmithData'
-import { AccountType, AddedAccountDataType, UserType } from '../api/types'
+import {
+  AccountType,
+  AddedAccountDataType,
+  DummyDataAccount,
+  UserType
+} from '../api/types'
 import { AccountGroupType } from '../api/types'
-import DummyData from '../lib/dummyData.json'
 
 export const PocketsmithContext = createContext<{
-  accounts: AccountType[]
+  accounts: AccountType[] | DummyDataAccount[]
   user: UserType
   addedAccountdata: AddedAccountDataType
+  isDummyData: boolean
+  setIsDummyData: (state: boolean) => void
 }>({
   accounts: [],
   user: {},
@@ -30,7 +36,9 @@ export const PocketsmithContext = createContext<{
         value: 0
       }
     ]
-  }
+  },
+  isDummyData: false,
+  setIsDummyData: () => {}
 })
 
 export default function PocketsmithContextProvider({
@@ -38,20 +46,23 @@ export default function PocketsmithContextProvider({
 }: {
   children: React.ReactNode
 }) {
-  const [accounts, setAccounts] = useState<AccountType[]>([])
+  const [accounts, setAccounts] = useState<AccountType[] | DummyDataAccount[]>(
+    []
+  )
   const [user, setUser] = useState<UserType>({})
-  const dummyData: any[] = DummyData
+  const [isDummyData, setIsDummyData] = useState<boolean>(false)
 
   const getPocketsmithAccountData = async () => {
     try {
       const response = await getAllAccountData()
+      // console.log('success - showing real data')
       setAccounts(response)
     } catch {
-      console.log('Dummy Data')
-      const response = dummyData
-      console.log(response)
+      // const response = DummyData
+      console.log('error - showing dummy data')
+      // console.log(response)
 
-      setAccounts(response)
+      // setAccounts(response.dummyData)
     }
   }
 
@@ -176,10 +187,11 @@ export default function PocketsmithContextProvider({
     addedAccountdata.accountGroups.map((group: AccountGroupType, i: number) => {
       // map over all accounts
       console.log(accounts)
-      accounts.map((account: AccountType, i: number) => {
+      accounts.map((account: AccountType | DummyDataAccount, i: number) => {
         // match up ids
         if (group.accountIds && group.accountIds.includes(account.id)) {
           // push into object
+          // console.log(account)
           group.accounts.push(account)
         }
       })
@@ -187,20 +199,21 @@ export default function PocketsmithContextProvider({
   }
 
   addAPIAccountData()
-
   const calcGroupBalances = () => {
     addedAccountdata.accountGroups.map((group: AccountGroupType, i: number) => {
       let balance: number = 0
-      group.accounts.map((account: AccountType, i: number) => {
-        // if(group.accountIds.includes(account.id)) {
-        if (account.current_balance_in_base_currency) {
-          balance += account.current_balance_in_base_currency
+      group.accounts.map(
+        (account: AccountType | DummyDataAccount, i: number) => {
+          // if(group.accountIds.includes(account.id)) {
+          if (account.current_balance_in_base_currency) {
+            balance += account.current_balance_in_base_currency
+          }
+          if (group.name === 'creditCards') {
+            // console.log(account.current_balance_in_base_currency, balance)
+          }
+          // }
         }
-        if (group.name === 'creditCards') {
-          console.log(account.current_balance_in_base_currency, balance)
-        }
-        // }
-      })
+      )
       group.groupBalance = balance
       // console.log(group.groupBalance)
     })
@@ -213,7 +226,9 @@ export default function PocketsmithContextProvider({
       value={{
         accounts: accounts,
         user: user,
-        addedAccountdata: addedAccountdata
+        addedAccountdata: addedAccountdata,
+        isDummyData,
+        setIsDummyData
       }}
     >
       {children}

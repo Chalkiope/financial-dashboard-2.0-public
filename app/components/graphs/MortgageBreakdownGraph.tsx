@@ -1,4 +1,4 @@
-import { AccountType } from '@/app/api/types'
+import { AccountType, DummyDataAccount } from '@/app/api/types'
 import { PocketsmithContext } from '@/app/contexts/PocketsmithProvider'
 import { useContext, useEffect, useState } from 'react'
 import {
@@ -16,7 +16,7 @@ import { Bar } from 'react-chartjs-2'
 export const MortgageBreakdownGraph = ({
   accountData
 }: {
-  accountData: AccountType[]
+  accountData: AccountType[] | DummyDataAccount[]
 }) => {
   const { accounts, addedAccountdata } = useContext(PocketsmithContext)
   const [balances, setBalances] = useState<number[]>([])
