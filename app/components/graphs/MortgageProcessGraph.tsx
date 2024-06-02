@@ -18,7 +18,7 @@ export const MortgageProcessGraph = ({
 }: {
   accountData: AccountType[] | DummyDataAccount[]
 }) => {
-  const { accounts, addedAccountdata } = useContext(PocketsmithContext)
+  const { addedAccountdata } = useContext(PocketsmithContext)
   const [mortgageData, setMortgageData] = useState<mortgageDataType[]>([])
 
   ChartJS.register(
@@ -73,12 +73,11 @@ export const MortgageProcessGraph = ({
   }, [accountData])
 
   const data = {
-    labels: ['Wedding', 'Joint', 'Trip', 'Fix 2', 'Fix 1', 'Total'],
+    labels: ['Fix 1 year', 'Fix 2 years', 'Rev. Credit'],
     datasets: [
       {
         label: 'Paid off',
         data: [...mortgageData.map((value) => value.available)],
-        // yAxisID: 'y-axis',
         backgroundColor: '#65b891'
       },
       {
@@ -91,7 +90,6 @@ export const MortgageProcessGraph = ({
 
   const options: ChartOptions<'bar'> = {
     indexAxis: 'y' as const,
-    // catAxis: 'x' as const,
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
@@ -103,8 +101,6 @@ export const MortgageProcessGraph = ({
             family: 'Overpass',
             size: 12
           }
-          // onHover: /* handleHover */ () => {},
-          // onLeave: /* handleLeave */ () => {}
         }
       }
     },
@@ -113,6 +109,7 @@ export const MortgageProcessGraph = ({
         border: {
           color: '#ffffff'
         },
+        suggestedMax: 250000,
         stacked: true,
         ticks: {
           display: true,
@@ -125,7 +122,6 @@ export const MortgageProcessGraph = ({
         grid: {
           display: false,
           tickColor: '#ffffff'
-          // drawBorder: false
         }
       },
 
@@ -133,7 +129,7 @@ export const MortgageProcessGraph = ({
         position: { x: 0 },
         border: {
           display: false,
-          color: '#ffffff' // turn off
+          color: '#ffffff'
         },
         stacked: true,
         ticks: {
@@ -144,7 +140,7 @@ export const MortgageProcessGraph = ({
         }
       },
       'y-axis': {
-        position: { x: 50000 },
+        position: { x: 40000 },
         border: {
           display: false
         },
@@ -168,12 +164,10 @@ export const MortgageProcessGraph = ({
     }
   }
 
-  // console.log(data)
   if (!accountData || !addedAccountdata) return <></>
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '30vh' }}>
-      {/* <Bar data={data2} options={options2} /> */}
       <Bar data={data} options={options} />
     </div>
   )

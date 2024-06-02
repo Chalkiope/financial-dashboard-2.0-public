@@ -1,4 +1,4 @@
-import { useGermanNumberFormat } from '@/app/hooks/useGermanNumberFormat'
+import { useNZNumberFormat } from '@/app/hooks/useNumberFormat'
 import { useCurrencySymbols } from '@/app/hooks/useCurrencySymbols'
 import s from './Account.module.scss'
 import RevolvingCredit from '../../../../assets/img/revolving-credit.svg'
@@ -32,8 +32,8 @@ export const Account = ({
     >
       <h2>{name}</h2>
       <p>
-        {useGermanNumberFormat(localBalance)}{' '}
-        <span>{useCurrencySymbols(currency)}</span>
+        <span>{useCurrencySymbols(currency)}</span>{' '}
+        {useNZNumberFormat(localBalance)}
       </p>
       {isRevolvingCredit && (
         <i className={s.icon}>

@@ -1,6 +1,4 @@
 import DummyData from '../lib/dummyData.json'
-import { useContext } from 'react'
-import { PocketsmithContext } from '../contexts/PocketsmithProvider'
 
 export const getUserData = async () => {
   const myHeaders = new Headers()
@@ -33,7 +31,6 @@ export const getAllAccountData = async () => {
     `${process.env.NEXT_PUBLIC_POCKETSMITH_API_KEY}`
   )
 
-  // try {
   return await fetch(
     `https://api.pocketsmith.com/v2/users/${process.env.NEXT_PUBLIC_POCKETSMITH_USER_ID}/accounts`,
     {
@@ -43,8 +40,8 @@ export const getAllAccountData = async () => {
     }
   )
     .then((response) => {
-      console.log(response)
       if (!response.ok) {
+        // use dummy data when no API key (public repo) or on error
         return DummyData.dummyData
       }
       return response.json()
@@ -69,7 +66,20 @@ export const getOneAccountData = async (id: number) => {
     headers: myHeaders,
     redirect: 'follow'
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        console.log('error getting account')
+        // use dummy data when no API key (public repo) or on error
+        DummyData.dummyData.map((account) => {
+          if (account.id === id) {
+            console.log(account)
+            return account
+          }
+        })
+      } else {
+        return response.json()
+      }
+    })
     .then((result) => {
       return result
     })

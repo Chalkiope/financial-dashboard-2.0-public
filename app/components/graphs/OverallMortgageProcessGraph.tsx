@@ -12,8 +12,6 @@ import {
 } from 'chart.js'
 import type { ChartOptions, ChartData } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
-import { ToggleButton } from '../toggle-button/ToggleButton'
-import s from './OverallMortgageProcessGraph.module.scss'
 
 export const OverallMortgageProcessGraph = ({
   accountData
@@ -22,8 +20,6 @@ export const OverallMortgageProcessGraph = ({
 }) => {
   const { addedAccountdata } = useContext(PocketsmithContext)
   const [mortgageData, setMortgageData] = useState<ChartData<'bar'>>()
-  const [current, setCurrent] = useState(true)
-  const [maxRepay, setMaxRepay] = useState(true)
 
   interface mortgageDataType {
     accountName: string | undefined
@@ -55,11 +51,8 @@ export const OverallMortgageProcessGraph = ({
       account: AccountType | DummyDataAccount,
       index: number
     ) => {
-      if (maxRepay) {
-        return account.current_balance ? account.current_balance * -1 : 0
-      } else if (
+      if (
         account.id &&
-        !maxRepay &&
         addedAccountdata.revolvingCredits.includes(account?.id)
       ) {
         return addedAccountdata.limits[index]
@@ -78,7 +71,7 @@ export const OverallMortgageProcessGraph = ({
       totalAvailable += available
 
       tempData.push({
-        accountName: account.title || account.name,
+        accountName: account.title,
         available: available,
         debt: debt,
         limit: limit
@@ -87,48 +80,36 @@ export const OverallMortgageProcessGraph = ({
     // last additions
     tempData.push({
       accountName: 'Paid off',
-      available: current ? 460000 - totalDebt : 557000 - totalDebt, // paid off
-      debt: current ? 460000 - totalAvailable : 557000 - totalAvailable,
-      limit: current ? 460000 : 557000
+      available: 500000 - totalDebt, // paid off
+      debt: 0,
+      limit: 0
     })
 
     data = {
-      labels: ['Breakdown'],
+      labels: ['Mortgage'],
       datasets: [
         {
-          // Joint
-          label: tempData[1]?.accountName,
-          data: [tempData[1]?.debt],
+          // Part 1
+          label: tempData[0]?.accountName,
+          data: [tempData[0]?.debt],
           backgroundColor: '#d8462c'
         },
         {
-          // Wedding
-          label: tempData[0]?.accountName,
-          data: [tempData[0]?.debt],
+          // Part 2
+          label: tempData[1]?.accountName,
+          data: [tempData[1]?.debt],
           backgroundColor: '#dd614a'
         },
         {
-          // Trip
+          // Part 3
           label: tempData[2]?.accountName,
           data: [tempData[2]?.debt],
           backgroundColor: '#f48668'
         },
         {
-          // Fix loan 1
-          label: tempData[4]?.accountName,
-          data: [tempData[4]?.debt],
-          backgroundColor: '#eb9d87'
-        },
-        {
-          // Fix loan 2
-          label: tempData[3]?.accountName,
-          data: [tempData[3]?.debt],
-          backgroundColor: '#edbdb0'
-        },
-        {
           // Total
           label: 'Paid off',
-          data: [tempData[5]?.available],
+          data: [tempData[3]?.available],
           backgroundColor: '#93e5ab'
         }
       ]
@@ -139,7 +120,7 @@ export const OverallMortgageProcessGraph = ({
 
   useEffect(() => {
     createDataSet()
-  }, [accountData, current, maxRepay])
+  }, [accountData])
 
   const options: ChartOptions<'bar'> = {
     indexAxis: 'y' as const,
@@ -162,7 +143,7 @@ export const OverallMortgageProcessGraph = ({
         border: {
           color: '#ffffff'
         },
-        suggestedMax: 557000,
+        suggestedMax: 500000,
         stacked: true,
         ticks: {
           display: true,
@@ -198,18 +179,6 @@ export const OverallMortgageProcessGraph = ({
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '20vh' }}>
-      <div className={s.chartControls}>
-        <ToggleButton
-          labelLeft="Current Mortgage"
-          labelRight="Since 2019"
-          onActive={() => setCurrent(!current)}
-        />
-        <ToggleButton
-          labelLeft="Max. Repayment"
-          labelRight="Min. Repayment"
-          onActive={() => setMaxRepay(!maxRepay)}
-        />
-      </div>
       <Bar data={mortgageData} options={options} />
     </div>
   )

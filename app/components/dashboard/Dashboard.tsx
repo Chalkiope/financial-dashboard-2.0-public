@@ -6,12 +6,8 @@ import { NetWorth } from '../net-worth/NetWorth'
 import { AssetDistribution } from '../asset-distribution/AssetDistribution'
 import { MortgageBreakdown } from '../mortgage-breakdown/MortgageBreakdown'
 import { BucketStrategy } from '../bucket-strategy/BucketStrategy'
-import { useContext } from 'react'
-import { PocketsmithContext } from '@/app/contexts/PocketsmithProvider'
 
 export const Dashboard = () => {
-  const { isDummyData } = useContext(PocketsmithContext)
-  console.log(isDummyData)
   return (
     <main className={s.dashboardWrapper}>
       <Section title="Accounts" scrollToId={'accounts'}>

@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import s from './AccountGroup.module.scss'
 import { Account } from './account/Account'
 import { AccountType, DummyDataAccount } from '@/app/api/types'
-import { useGermanNumberFormat } from '@/app/hooks/useGermanNumberFormat'
+import { useNZNumberFormat } from '@/app/hooks/useNumberFormat'
 import { useFormattedText } from '@/app/hooks/useFormattedText'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
@@ -51,7 +51,7 @@ export const AccountGroup = ({
               groupBalance < 0 ? s.negativeBalance : ''
             }`}
           >
-            {useGermanNumberFormat(groupBalance)}
+            {useNZNumberFormat(groupBalance)}
             <span> NZ$</span>
           </h3>
         </div>
@@ -72,7 +72,6 @@ export const AccountGroup = ({
         <Container columns={4}>
           {groupAccounts.map(
             (account: AccountType | DummyDataAccount, i: number) => {
-              console.log(account)
               return (
                 <>
                   <Account

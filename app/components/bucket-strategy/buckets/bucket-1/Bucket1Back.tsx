@@ -5,20 +5,19 @@ import s from './Bucket1.module.scss'
 import { PocketsmithContext } from '@/app/contexts/PocketsmithProvider'
 import { getOneAccountData } from '@/app/lib/fetchPocketsmithData'
 import { AccountType, DummyDataAccount } from '@/app/api/types'
+import { dummyData } from '../../../../lib/dummyData.json'
 
 export const Bucket1Back = () => {
-  const { accounts } = useContext(PocketsmithContext)
   const [account, setAccount] = useState<AccountType | DummyDataAccount>()
-
-  // const account = getOneAccountData(1203277)
 
   const getOneAccount = async (id: number) => {
     const response = await getOneAccountData(id)
     setAccount(response)
+    console.log(response)
   }
 
   useEffect(() => {
-    getOneAccount(1203277)
+    getOneAccount(12)
   }, [])
 
   useEffect(() => {
@@ -34,7 +33,7 @@ export const Bucket1Back = () => {
         name="Sharesies Car Savings"
         type="Low Risk"
         side="back"
-        goalValue={30000}
+        goalValue={15000}
         currentValue={account?.current_balance_in_base_currency}
       />
     </div>

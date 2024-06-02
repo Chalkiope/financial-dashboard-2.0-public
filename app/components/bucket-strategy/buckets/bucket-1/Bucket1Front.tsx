@@ -6,7 +6,7 @@ export const Bucket1Front = () => {
     <div className={s.bucket1}>
       <BucketPart
         percentage={100}
-        name="Sharesies Car Savings"
+        name="Notice Saver"
         type="Low Risk"
         side="front"
       />

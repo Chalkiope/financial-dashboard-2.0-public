@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import s from './BucketPart.module.scss'
-import { useGermanNumberFormat } from '@/app/hooks/useGermanNumberFormat'
+import { useNZNumberFormat } from '@/app/hooks/useNumberFormat'
 
 export const BucketPart = ({
   percentage,
@@ -31,8 +31,8 @@ export const BucketPart = ({
   hideValues?: boolean
   denseLayout?: boolean
 }) => {
-  const value = useGermanNumberFormat(currentValue)
-  const goal = useGermanNumberFormat(goalValue)
+  const value = useNZNumberFormat(currentValue)
+  const goal = useNZNumberFormat(goalValue)
 
   return (
     <div

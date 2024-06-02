@@ -1,7 +1,7 @@
 'use client'
 import { useContext, useEffect, useState } from 'react'
 import s from './NetWorth.module.scss'
-import { useGermanNumberFormat } from '@/app/hooks/useGermanNumberFormat'
+import { useNZNumberFormat } from '@/app/hooks/useNumberFormat'
 import { PocketsmithContext } from '@/app/contexts/PocketsmithProvider'
 import { AccountType, DummyDataAccount } from '@/app/api/types'
 import CustomTooltip from '@/app/components/tooltip/Tooltip'
@@ -24,7 +24,6 @@ export const NetWorth = () => {
   }
 
   const getLiquidNetWorth = () => {
-    // check data behind this (what makes up the liquid net worth anyway?)
     let totalBalance = 0
     accounts.map((account: AccountType | DummyDataAccount, i: number) => {
       if (account.current_balance_in_base_currency) {
@@ -75,7 +74,7 @@ export const NetWorth = () => {
           </CustomTooltip>
         </div>
         <p>
-          {useGermanNumberFormat(totalNetWorth)}
+          {useNZNumberFormat(totalNetWorth)}
           <span> NZ$</span>
         </p>
       </div>
@@ -88,7 +87,7 @@ export const NetWorth = () => {
         </div>
 
         <p>
-          {useGermanNumberFormat(liquidNetWorth)}
+          {useNZNumberFormat(liquidNetWorth)}
           <span> NZ$</span>
         </p>
       </div>
@@ -101,7 +100,7 @@ export const NetWorth = () => {
         </div>
 
         <p>
-          {useGermanNumberFormat(creditCardDebt)}
+          {useNZNumberFormat(creditCardDebt)}
           <span> NZ$</span>
         </p>
       </div>
