@@ -105,13 +105,16 @@ export default function PocketsmithContextProvider({
     // map over groups
     addedAccountdata.accountGroups.map((group: AccountGroupType, i: number) => {
       // map over all accounts
-      accounts.map((account: AccountType | DummyDataAccount, i: number) => {
-        // match up ids
-        if (group.accountIds && group.accountIds.includes(account.id)) {
-          // push into object
-          group.accounts.push(account)
-        }
-      })
+      {
+        accounts.length &&
+          accounts.map((account: AccountType | DummyDataAccount, i: number) => {
+            // match up ids
+            if (group.accountIds && group.accountIds.includes(account.id)) {
+              // push into object
+              group.accounts.push(account)
+            }
+          })
+      }
     })
   }
 
