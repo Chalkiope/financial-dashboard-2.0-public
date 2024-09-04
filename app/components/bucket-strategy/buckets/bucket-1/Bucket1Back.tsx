@@ -9,20 +9,20 @@ import { dummyData } from '../../../../lib/dummyData.json'
 
 export const Bucket1Back = () => {
   const [account, setAccount] = useState<AccountType | DummyDataAccount>()
+  const { accounts } = useContext(PocketsmithContext)
+  console.log(accounts)
 
-  const getOneAccount = async (id: number) => {
-    const response = await getOneAccountData(id)
-    setAccount(response)
-    console.log(response)
+  const getOneAccount = (id: number) => {
+    accounts.map((_account) => {
+      if (_account.id === id) {
+        setAccount(_account)
+      }
+    })
   }
 
   useEffect(() => {
     getOneAccount(12)
-  }, [])
-
-  useEffect(() => {
-    console.log(account)
-  }, [account])
+  }, [accounts])
 
   if (!account || typeof account === 'undefined') return <></>
 
@@ -30,7 +30,7 @@ export const Bucket1Back = () => {
     <div className={s.bucket1}>
       <BucketPart
         percentage={100}
-        name="Sharesies Car Savings"
+        name={account.title}
         type="Low Risk"
         side="back"
         goalValue={15000}

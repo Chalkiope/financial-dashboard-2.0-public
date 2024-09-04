@@ -72,13 +72,11 @@ export const getOneAccountData = async (id: number) => {
         // use dummy data when no API key (public repo) or on error
         DummyData.dummyData.map((account) => {
           if (account.id === id) {
-            console.log(account)
             return account
           }
         })
-      } else {
-        return response.json()
       }
+      return response.json()
     })
     .then((result) => {
       return result

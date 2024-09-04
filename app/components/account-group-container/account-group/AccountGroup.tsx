@@ -75,6 +75,7 @@ export const AccountGroup = ({
               return (
                 <>
                   <Account
+                    key={i}
                     id={account.id}
                     name={`${account.title}`}
                     exchangeRate={account.current_balance_exchange_rate || null}

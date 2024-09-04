@@ -39,7 +39,6 @@ export const AssetDistributionBarGraph = () => {
       assetData.push((number / totalAssets) * 100)
     })
 
-    console.log(assetData)
     return { assetData, goalData }
   }
 
