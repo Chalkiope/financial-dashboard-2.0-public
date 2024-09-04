@@ -29,8 +29,12 @@ export const MortgageBreakdown = () => {
   }
 
   useEffect(() => {
-    getMortgageAccounts()
+    if (accounts.length) {
+      getMortgageAccounts()
+    }
   }, [accounts])
+
+  if (!accounts) return <></>
 
   return (
     <>

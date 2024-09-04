@@ -59,9 +59,11 @@ export const NetWorth = () => {
   }
 
   useEffect(() => {
-    getTotalNetWorth()
-    getLiquidNetWorth()
-    getCreditCardDebt()
+    if (accounts.length) {
+      getTotalNetWorth()
+      getLiquidNetWorth()
+      getCreditCardDebt()
+    }
   }, [accounts])
 
   return (
