@@ -27,7 +27,7 @@ export const Dashboard = () => {
         <BucketStrategy />
       </Section>
       <Section title="Investments" scrollToId={'investments'}>
-        <></>
+        <>Coming soon...</>
       </Section>
     </main>
   )
